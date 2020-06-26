@@ -1,0 +1,53 @@
+
+### Grid representation
+Primary stress (level 2)	x
+Secondary stress (level 1)	x   x   x
+Syllable (level 0)		x x x x x
+
+### Constraints 
+Align(x1,L)
+Every grid mark of level 1 is aligned with the _left_ edge of level 0 of grid marks in a prosodic word.
+
+Align(x1,R)
+Every grid mark of level 1 is aligned with the _right_ edge of level 0 of grid marks in a prosodic word.
+
+AlignEdges
+The edges of level 0 of grid marks in a prosodic word are aligned with level 1 grid marks.
+
+Align(x2,L)
+Every grid mark of level 2 is aligned with the _left_ edge of level 1 of grid marks in a prosodic word.
+
+Align(x2,R)
+Every grid mark of level 2 is aligned with the _right_ edge of level 1 of grid marks in a prosodic word.
+
+*Clash
+A stress domain does not contain adjacent stressed syllable.
+(Adjacent syllables carrying a level 1 grid mark are banned.)
+
+*Lapse
+A string of more than one consecutive stressless syllable may not occur.
+(A sequence of more than one consecutive syllable lacking a level 1 grid mark is banned.)
+
+*ExtendedLapse
+A string of more than two consecutive stressless syllables may not occur.
+(A sequence of more than two consecutive syllables lacking a level 1 grid mark is banned.)
+
+*LapseLeft
+A maximum of one unstressed syllable separates the _leftmost_ stress from the _left_ edge of a stress domain.
+(No more than one syllable separates the _leftmost_ syllable with a level 1 grid mark from the _left_ edge.)
+
+*LapseRight
+A maximum of one unstressed syllable separates the _rightmost_ stress from the _right_ edge of a stress domain.
+(No more than one syllable separates the _rightmost_ syllable with a level 1 grid mark from the _right_ edge.)
+
+*ExtendedLapseRight
+A maximum of two unstressed syllables separates the _rightmost_ stress from the _right_ edge of a stress domain.
+(No more than two syllables separate the _rightmost_ syllable with a level 1 grid mark from the _right_ edge.)
+
+Nonfinality
+Stress does not fall on the final syllable.
+(A final syllable does not have a level 1 grid mark.)
+
+"The only fixed ranking assumed involved constraints referring to primary stress. It was assumed that either Align(x2,L) or Align(x2,R) was ranked below all other stress constraints. This ranking reflects the cross-linguistic parameterization of primary stress placement in languages with multiple stresses in a single word: languages are internally consistent in either promoting the rightmost or the leftmost stress to primary stress, a consistency reflected in the parameterized application of either End Rule Right or End Rule Left in derivational frameworks (Prince 19830)."
+
+"All logically possible stress patterns for words containing between one and eight syllables were considered as candidates. The only potential candidate stress patterns not considered were ones which violated Prince's (1983) Culminativity condition, i.e. it was assumed that all words have one syllable which is more prominent than all others."

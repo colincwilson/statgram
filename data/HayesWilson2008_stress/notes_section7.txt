@@ -1,0 +1,19 @@
+"Grid formalism makes it possible to characterize the nonlocal patterns described above in local terms" (p. 408).
+
+Eastern Cheremis type stress pattern (Hayes 1995:sec. 7.2)
+    (15) unbounded stress pattern
+    "default to opposite" - "rightmost heavy, else initial"
+    Table 10: learned constraints
+        main    *##                 Culminativity
+        stress  *[+main][]          End Rule Right
+        default *[-str,+heavy]      Weight-to-Stress
+        default *[-str]             Every word must begin with stress
+        default *[][+str,-heavy]    Light syllables may be stressed only if initial
+
+empirical typology of quantity-insensitive systems compiled by Gordon (2002)
+    33 observed stress patterns
+    all legal patterns up to eight syllables in the training sets
+    some minor corrections to Gordon's materials
+    tested learned grammars by examining all possible strings of length 8 or less composed of (syll-unstressed, syll-secondary.stress, syll-primary.stress)
+    Table 11: six most common learned constraints
+    

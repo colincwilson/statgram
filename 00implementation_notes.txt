@@ -1,0 +1,21 @@
+=Stress=
+
+* Represent trees with nltk.tree
+
+from nltk.tree import Tree
+string1 = '(PrWd (Ft (HdSyll x) (Syll x)) (HdFt (HdSyll x) (Syll x)))'
+tree1 = Tree.fromstring(string1)
+tree1.pprint() # or tree1.pformat()
+tree1.pretty_print() # ascii art
+
+for s in tree1.subtrees():
+    print (type(s), s)
+
+len(tree1) # number of constituents of root
+tree1[0].label() # label of first constituent of root
+tree1[1].label() # label of second constituent of root
+
+* Associate a dictionary or vector of marks with each node (subtree)
+tree1.marks = dict()
+tree1.marks['C1'] = +1.0
+tree1.marks['C2'] = -1.0
