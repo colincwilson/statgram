@@ -6,7 +6,7 @@ def harmony_HG(nodes, weight):
     Static HG harmony function: sum marks within each node, 
     apply min0 ('minnow') nonlinearity
     """
-    h_total, nodes_ill = 0.0, []
+    h_total, ill_nodes = 0.0, []
     for n in nodes:
         # Reduce (sum) weighted marks
         h_n = 0.0
@@ -18,8 +18,8 @@ def harmony_HG(nodes, weight):
         h_total = h_total + h_n
         # Track ill-formed nodes
         if h_n < 0.0:
-            nodes_bad.append(n)
-    return (h_total, nodes_ill)
+            ill_nodes.append(n)
+    return (h_total, ill_nodes)
 
 
 def harmony_OT(nodes, rank):
