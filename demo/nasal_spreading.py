@@ -3,8 +3,8 @@
 import argparse, re, sys
 import itertools
 from collections import namedtuple
-sys.path.append('../../fst/src')
-sys.path.append('../src')
+sys.path.append('../../fst')
+sys.path.append('..')
 from statgram.harmony import harmony_HG
 from fst import fst
 from fst import fst_config
