@@ -2,15 +2,11 @@
 
 import argparse, re, sys
 import itertools
-from collections import namedtuple
-sys.path.append('../../fst')
-sys.path.append('..')
-from statgram.harmony import harmony_HG
-from fst import fst
-from fst import fst_config
+sys.path.append('../../../fst')
+sys.path.append('../..')
+from statgram.harmony import Node, HGStat, OTStat
+from fst import fst_config, fst
 FST, Transition = fst.FST, fst.Transition
-
-Node = namedtuple('Node', ['t', 'marks'])
 
 
 # # # # # # # # # #
@@ -163,14 +159,15 @@ markup = {}
 for t in Gen.T:
     if t.label == fst_config.end_delim:
         continue
-    marks = set([])
+    marks = set()
     for constraint in Con:
         mark = constraint(t)
         if mark[1] != 0:
             marks.add(mark)
     markup[t] = Node(t, marks)
 
-_, nodes_ill = harmony_HG(markup.values(), weights)
+_, nodes_ill = HGStat(markup.values(), weights)
+#_, nodes_ill = OTStat(markup.values(), weights)
 for node in nodes_ill: # xxx copy Gen first
     Gen.T.remove(node.t)
 Lang = fst.trim(Gen)

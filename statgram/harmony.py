@@ -1,43 +1,62 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-def harmony_HG(nodes, weight):
+from collections import namedtuple
+
+Node = namedtuple('Node', ['t', 'marks'])
+
+
+def HGStat_(node, weights):
     """
-    Static HG harmony function: sum marks within each node, 
+    Static HG harmony function: sum marks within a node, 
     apply min0 ('minnow') nonlinearity
     """
-    h_total, ill_nodes = 0.0, []
-    for n in nodes:
-        # Reduce (sum) weighted marks
-        h_n = 0.0
-        for (c,m) in n.marks:
-            h_n = h_n + (weight[c] * m)
-        # Apply min0 non-linearity
-        h_n = h_n if h_n <= 0.0 else 0.0
-        # Accumulate total harmony
-        h_total = h_total + h_n
-        # Track ill-formed nodes
-        if h_n < 0.0:
-            ill_nodes.append(n)
-    return (h_total, ill_nodes)
+    score = 0.0
+    for (c, m) in node.marks:
+        score += weights[c] * m
+    harmony = score if score < 0.0 else 0.0
+    return harmony
 
 
-def harmony_OT(nodes, rank):
-    """Static OT harmony function: a node is well-formed iff 
-    every constraint that assigns it a negative mark is 
-    dominated by some constraint that assigns it a positive mark
+def HGStat(nodes, weights):
     """
-    h_total, nodes_ill = 0.0, []
-    for n in nodes:
-        # Reduce ranked marks
-        c_dom, h_n = None, 0.0
-        for (c,m) in n.marks:
-            if (c_dom is None) \
-                or rank[c] > rank[c_dom]:
-                c_dom, h_n = c, m
-        # Accumulate total harmony, count 
-        # and track ill-formed nodes
-        if h_n < 0.0:
-            h_total = h_total + 1.0
-            nodes_ill.append(n)
-    return (h_total, nodes_ill)
+    Apply static HG harmony function to a set of nodes, 
+    tracking which ones are ill-formed (harmony < 0)
+    """
+    harmony_total = 0.0
+    ill_nodes = []
+    for node in nodes:
+        harmony = HGStat_(node, weights)
+        if harmony < 0.0:
+            harmony_total += harmony
+            ill_nodes.append(node)
+    return (harmony_total, ill_nodes)
+
+
+def OTStat_(node, ranks):
+    """
+    Static OT harmony function: a node is well-formed iff 
+    every constraint that assigns it a negative mark is 
+    dominated by some constraint that assigns it a 
+    positive mark
+    """
+    c_max, score = None, 0.0
+    for (c, m) in node.marks:
+        if c_max is None or ranks[c] > ranks[c_max]:
+            c_max, score = c, m
+    harmony = -1.0 if score < 0.0 else 0.0
+    return harmony
+
+
+def OTStat(nodes, ranks):
+    """
+    Apply static OT harmony function to a set of nodes, 
+    tracking which ones are ill-formed (harmony < 0)
+    """
+    harmony_total = 0.0
+    ill_nodes = []
+    for node in nodes:
+        harmony = OTStat_(node, ranks)
+        if harmony < 0.0:
+            harmony_total += harmony
+            ill_nodes.append(node)
+    return (harmony_total, ill_nodes)
