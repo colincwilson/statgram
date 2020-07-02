@@ -52,35 +52,35 @@ M_tier = FST(
     qf = {5}
 )
 T = M_tier.T
-T.add(Transition(0, fst_config.begin_delim, 1)) # (0, >, 1)
-T.add(Transition(1, fst_config.end_delim, 5)) # (1, <, 5)
+T.add(Transition(src=0, olabel=fst_config.begin_delim, dest=1)) # (0, >, 1)
+T.add(Transition(src=1, olabel=fst_config.end_delim, dest=5)) # (1, <, 5)
 for x in fst_config.Sigma:
     # non-nasal; single-membered span
     if re.search('(0[-])|(1[|])', x): 
-        T.add(Transition(1, x, 1)) 
+        T.add(Transition(src=1, olabel=x, dest=1)) 
     # left-headed span
     if re.search('1[(]', x):
-        T.add(Transition(1, x, 2))
+        T.add(Transition(src=1, olabel=x, dest=2))
     if re.search('0[+]', x):
-        T.add(Transition(2, x, 2))
+        T.add(Transition(src=2, olabel=x, dest=2))
     if re.search('0[)]', x):
-        T.add(Transition(2, x, 1))
+        T.add(Transition(src=2, olabel=x, dest=1))
     # right-headed span
     if re.search('0[(]', x):
-        T.add(Transition(1, x, 3))
+        T.add(Transition(src=1, olabel=x, dest=3))
     if re.search('0[+]', x):
-        T.add(Transition(3, x, 3))
+        T.add(Transition(src=3, olabel=x, dest=3))
     if re.search('1[)]', x):
-        T.add(Transition(3, x, 1))
+        T.add(Transition(src=3, olabel=x, dest=1))
     # interior-headed span
     if re.search('1[+]', x):
-        T.add(Transition(3, x, 4))
+        T.add(Transition(src=3, olabel=x, dest=4))
     if re.search('0[+]', x):
-        T.add(Transition(4, x, 4))
+        T.add(Transition(src=4, olabel=x, dest=4))
     if re.search('0[)]', x):
-        T.add(Transition(4, x, 1))
+        T.add(Transition(src=4, olabel=x, dest=1))
 print(f'M_tier: {len(M_tier.Q)} states, {len(M_tier.T)} transitions')
-fst.to_dot(M_tier, 'Tier_nasal.dot')
+fst.draw(M_tier, 'Tier_nasal.dot')
 # dot -Tpdf Tier_nasal.dot > Tier_nasal.pdf
 
 # Left-context machine
@@ -88,17 +88,19 @@ M_left = fst.left_context_acceptor(fst_config.Sigma)
 print(f'M_left: {len(M_left.Q)} states, {len(M_tier.T)} transitions')
 
 # Intersection of M_tier and M_left
+#print(M_tier)
+#print(M_left)
 Gen = fst.intersect(M_tier, M_left)
 Gen = fst.map_states(Gen, lambda q: (q[0], q[1][0]))
 print(f'Gen: {len(Gen.Q)} states, {len(Gen.T)} transitions')
-fst.to_dot(Gen, 'Gen_nasal.dot')
+fst.draw(Gen, 'Gen_nasal.dot')
 # dot -Tpdf Gen_nasal.dot > Gen_nasal.pdf 
 
 
 # # # # # # # # # #
 # Constraints
 def NasN(t):
-    label = t.label
+    label = t.olabel
     if re.search('[N]', label):
         #if re.search('[-]', label): # N must be +nasal
         if not re.search('1', label): # N must be head of +nasal span
@@ -108,7 +110,7 @@ def NasN(t):
     return ('NasN', 0)
 
 def NoNasObs(t):
-    label = t.label
+    label = t.olabel
     if re.search('[TS]', label):
         if re.search('[-]', label):
             return ('NoNasObs', +1)
@@ -117,7 +119,7 @@ def NoNasObs(t):
     return ('NoNasObs', 0)
 
 def NoNasVoc(t):
-    label = t.label
+    label = t.olabel
     if re.search('[GV]', label):
         if re.search('[-]', label):
             return ('NoNasVoc', +1)
@@ -127,7 +129,7 @@ def NoNasVoc(t):
 
 def SpreadR(t):
     left_context, label = \
-        t.src[1], t.label
+        t.src[1], t.olabel
     if re.search('[)|]', left_context):
         return ('SpreadR', -1)
     if re.search('[(+]', left_context) \
@@ -137,7 +139,7 @@ def SpreadR(t):
 
 def SyllStruc(t):
     left_context, label = \
-        t.src[1], t.label
+        t.src[1], t.olabel
     if re.search('[TSNG]', left_context):
         if re.search('[TSNG]', label):
             return ('SyllStruc', -1)
@@ -157,7 +159,7 @@ weights = { 'NasN': 3.0,
             'SyllStruc': 10.0 }
 markup = {}
 for t in Gen.T:
-    if t.label == fst_config.end_delim:
+    if t.olabel == fst_config.end_delim:
         continue
     marks = set()
     for constraint in Con:
@@ -172,13 +174,13 @@ for node in nodes_ill: # xxx copy Gen first
     Gen.T.remove(node.t)
 Lang = fst.trim(Gen)
 print(f'Lang: {len(Lang.Q)} states, {len(Lang.T)} transitions')
-fst.to_dot(Lang, 'Lang_nasal.dot')
+fst.draw(Lang, 'Lang_nasal.dot')
 # dot -Tpdf Lang_nasal.dot > Lang_nasal.pdf
 
 # # # # # # # # # #
 # Words
 Output = fst.intersect(Lang, fst.trellis(4))
-fst.to_dot(Output, 'Output_nasal.dot')
+fst.draw(Output, 'Output_nasal.dot')
 outputs = fst.accepted_strings(Lang, 4)
 outputs = { pretty_print(x) for x in outputs }
 print(outputs)

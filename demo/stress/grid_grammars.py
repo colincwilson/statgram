@@ -138,7 +138,7 @@ weights = { 'AlternateLR': 2.0,
             'NonFinality': 5.0 }
 
 grid_grammar = GridGrammar()
-inpt = ['σ σ σ σ σ'][0]
+inpt = ['σ σ σ σ σ σ σ'][0]
 trees = grid_grammar.parses(inpt)
 
 for tree in trees:
