@@ -181,6 +181,7 @@ def SyllStrucL(t):
             return ('SyllStrucL', -1)
     return ('SyllStrucL', 0)
 
+
 # # # # # # # # # #
 # Eval
 Con = [NasN, NoNasObs, NoNasVoc]
@@ -211,15 +212,12 @@ for t in Gen.T:
 
 _, nodes_ill = Stat(markup.values(), weights)
 for node in nodes_ill: # xxx copy Gen first
-    if ('NoNasVoc', -1) in node.marks \
-        and ('SpreadNasL', +1) in node.marks \
-        and ('SyllStrucL', -1) not in node.marks:
-        print(node.t, node.marks)
     Gen.T.remove(node.t)
 Lang = fst_util.trim(Gen)
 print(f'Lang: {len(Lang.Q)} states, {len(Lang.T)} transitions')
 fst_util.draw(Lang, 'Lang_nasal.dot')
 # dot -Tpdf Lang_nasal.dot > Lang_nasal.pdf
+
 
 # # # # # # # # # #
 # Outputs
