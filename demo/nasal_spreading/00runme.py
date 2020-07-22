@@ -4,16 +4,17 @@ import re, sys
 import itertools
 sys.path.append('../../../fst_util')
 sys.path.append('../..')
-from statgram.harmony import Node, HGStat, OTStat
+from statgram.harmony import Mark, MarkedNode, Eval, \
+    HGStat, OTStat, Stat
 from fst_util import fst_config, fst_util
 FST, Transition = fst_util.FST, fst_util.Transition
 
 Spread_direction = {0:'LR->', 1:'<-RL'}[0]
-Stat = {0:HGStat, 1:OTStat}[0]
+fstat = {0:HGStat, 1:OTStat}[0]
 
 
 # # # # # # # # # #
-# Sigma
+# Alphabet
 Sigma_seg = ['T', 'S', 'N', 'G', 'V'] # segments
 Sigma_head = ['1', '0'] # head vs. dependent in span
 Sigma_brack = ['(', '+', ')', '|', '-'] # span specs
@@ -44,16 +45,17 @@ def pretty_print_spans(form):
     #form = re.sub(' ', '', form)
     return form
 
+
 # # # # # # # # # #
 # Gen
 # Headed +nasal spans
-M_tier = FST(
+M_span = FST(
     Q = {0, 1, 2, 3, 4, 5},
     T = set(),
     q0 = 0,
     qf = {5}
 )
-T = M_tier.T
+T = M_span.T
 T.add(Transition(src=0, olabel=fst_config.begin_delim, dest=1)) # (0, >, 1)
 T.add(Transition(src=1, olabel=fst_config.end_delim, dest=5)) # (1, <, 5)
 for x in fst_config.Sigma:
@@ -81,9 +83,9 @@ for x in fst_config.Sigma:
         T.add(Transition(src=4, olabel=x, dest=4))
     if re.search('0[)]', x):
         T.add(Transition(src=4, olabel=x, dest=1))
-print(f'M_tier: {len(M_tier.Q)} states, {len(M_tier.T)} transitions')
-fst_util.draw(M_tier, 'Tier_nasal.dot')
-# dot -Tpdf Tier_nasal.dot > Tier_nasal.pdf
+print(f'M_span: {len(M_span.Q)} states, {len(M_span.T)} transitions')
+fst_util.draw(M_span, 'Span_nasal.dot')
+# dot -Tpdf Span_nasal.dot > Span_nasal.pdf
 
 # Left-context machine with one-segment history
 M_left = fst_util.left_context_acceptor(fst_config.Sigma, 1)
@@ -100,9 +102,9 @@ fst_util.draw(M_right, 'Right_context.dot')
 
 # Intersection of M_tier and M_left or M_right
 if Spread_direction == 'LR->':
-    Gen = fst_util.intersect(M_tier, M_left)
+    Gen = fst_util.intersect(M_span, M_left)
 else:
-    Gen = fst_util.intersect(M_tier, M_right)
+    Gen = fst_util.intersect(M_span, M_right)
 Gen = fst_util.map_states(Gen, lambda q: (q[0], q[1][0]))
 print(f'Gen: {len(Gen.Q)} states, {len(Gen.T)} transitions')
 fst_util.draw(Gen, 'Gen_nasal.dot')
@@ -110,76 +112,90 @@ fst_util.draw(Gen, 'Gen_nasal.dot')
 
 
 # # # # # # # # # #
-# Constraints
+# Con
 def NasN(t):
     label = t.olabel
     if re.search('[N]', label):
         #if re.search('[-]', label): # N must be [+nasal]
         if re.search('1', label): # N must be head of +nasal span
-            return ('NasN', +1)
+            v = +1
         else:
-            return ('NasN', -1)
-    return ('NasN', 0)
+            v = -1
+    else:
+        v = 0
+    return Mark('NasN', v, subnode='nasal')
 
 def NoNasObs(t):
     label = t.olabel
     if re.search('[TS]', label):
         if re.search('[-]', label): # obstruent must be [-nasal]
-            return ('NoNasObs', +1)
+            v = +1
         else:
-            return ('NoNasObs', -1)
-    return ('NoNasObs', 0)
+            v = -1
+    else:
+        v = 0
+    return Mark('NoNasObs', v, subnode='nasal')
 
 def NoNasVoc(t):
     label = t.olabel
     if re.search('[GV]', label):
         if re.search('[-]', label): # vocoid must be [-nasal]
-            return ('NoNasVoc', +1)
+            v = +1
         else:
-            return ('NoNasVoc', -1)
-    return ('NoNasVoc', 0)
+            v = -1
+    else:
+        v = 0
+    return Mark('NoNasVoc', v, subnode='nasal')
 
 def SpreadNasR(t):
     left_context, label = \
         t.src[1], t.olabel
     if re.search('[)|]', left_context): # I shoulda been a dependent
-        return ('SpreadNasR', -1)
-    if re.search('[(+]', left_context) \
+        v = -1
+    elif re.search('[(+]', left_context) \
         and re.search('0[+)]', label):
-            return ('SpreadNasR', +1)
-    return ('SpreadNasR', 0)
+            v = +1
+    else:
+        v = 0
+    return Mark('SpreadNasR', v, subnode='nasal')
 
 def SpreadNasL(t):
     right_context, label = \
         t.dest[1], t.olabel
     if re.search('[(|]', right_context): # I shoulda been a dependent
-        return ('SpreadNasL', -1)
-    if re.search('[)+]', right_context) \
+        v = -1
+    elif re.search('[)+]', right_context) \
         and re.search('0[+(]', label):
-            return ('SpreadNasL', +1)
-    return ('SpreadNasL', 0)
+            v = +1
+    else:
+        v = 0
+    return Mark('SpreadNasL', v, subnode='nasal')
 
 def SyllStrucR(t):
     left_context, label = \
         t.src[1], t.olabel
-    if re.search('[TSNG]', left_context):
-        if re.search('[TSNG]', label): # no clusters
-            return ('SyllStrucR', -1)
-    if re.search('[V]', left_context):
-        if re.search('[V]', label): # no hiatus
-            return ('SyllStrucR', -1)
-    return ('SyllStrucR', 0)
+    if re.search('[TSNG]', left_context) \
+        and re.search('[TSNG]', label): # no clusters
+            v = -1
+    elif re.search('[V]', left_context) \
+        and re.search('[V]', label): # no hiatus
+            v = -1
+    else:
+        v = 0
+    return Mark('SyllStrucR', v)
 
 def SyllStrucL(t):
     right_context, label = \
         t.dest[1], t.olabel
-    if re.search('[TSNG]', right_context):
-        if re.search('[TSNG]', label): # no clusters
-            return ('SyllStrucL', -1)
-    if re.search('[V]', right_context):
-        if re.search('[V]', label): # no hiatus
-            return ('SyllStrucL', -1)
-    return ('SyllStrucL', 0)
+    if re.search('[TSNG]', right_context) \
+        and re.search('[TSNG]', label): # no clusters
+            v = -1
+    elif re.search('[V]', right_context) \
+        and re.search('[V]', label): # no hiatus
+            v = -1
+    else:
+        v = 0
+    return Mark('SyllStrucL', v)
 
 
 # # # # # # # # # #
@@ -197,22 +213,13 @@ else:
     weights['SpreadNasL'] = 2.0
     weights['SyllStrucL'] = 10.0
 
-# Assign marks to transitions
-markup = {}
-for t in Gen.T:
-    if t.olabel == fst_config.begin_delim \
-        or t.olabel == fst_config.end_delim:
-        continue
-    marks = set()
-    for constraint in Con:
-        mark = constraint(t)
-        if mark[1] != 0:
-            marks.add(mark)
-    markup[t] = Node(t, marks)
-
-_, nodes_ill = Stat(markup.values(), weights)
+# Assign marks to transitions and prune
+fignore = lambda t : (t.olabel in [fst_config.begin_delim,
+                                   fst_config.end_delim])
+markup = Eval(Gen.T, Con, fignore)
+_, nodes_ill = Stat(markup, weights, fstat)
 for node in nodes_ill: # xxx copy Gen first
-    Gen.T.remove(node.t)
+    Gen.T.remove(node.n)
 Lang = fst_util.trim(Gen)
 print(f'Lang: {len(Lang.Q)} states, {len(Lang.T)} transitions')
 fst_util.draw(Lang, 'Lang_nasal.dot')
