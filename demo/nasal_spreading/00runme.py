@@ -88,13 +88,13 @@ fst_util.draw(M_span, 'Span_nasal.dot')
 # dot -Tpdf Span_nasal.dot > Span_nasal.pdf
 
 # Left-context machine with one-segment history
-M_left = fst_util.left_context_acceptor(fst_config.Sigma, 1)
+M_left = fst_util.left_context_acceptor(length=1)
 print(f'M_left: {len(M_left.Q)} states, {len(M_left.T)} transitions')
 fst_util.draw(M_left, 'Left_context.dot')
 # dot -Tpdf Left_context.dot > Left_context.pdf
 
 # Right-context machine with one-segment lookahead
-M_right = fst_util.right_context_acceptor(fst_config.Sigma, 1)
+M_right = fst_util.right_context_acceptor(length=1)
 print(f'M_right: {len(M_right.Q)} states, {len(M_right.T)} transitions')
 fst_util.draw(M_right, 'Right_context.dot')
 # dot -Tpdf Right_context.dot > Right_context.pdf
@@ -220,7 +220,7 @@ markup = Eval(Gen.T, Con, fignore)
 _, nodes_ill = Stat(markup, weights, fstat)
 for node in nodes_ill: # xxx copy Gen first
     Gen.T.remove(node.n)
-Lang = fst_util.trim(Gen)
+Lang = fst_util.connect(Gen)
 print(f'Lang: {len(Lang.Q)} states, {len(Lang.T)} transitions')
 fst_util.draw(Lang, 'Lang_nasal.dot')
 # dot -Tpdf Lang_nasal.dot > Lang_nasal.pdf
