@@ -2,26 +2,51 @@
 
 import re, sys
 import itertools
+
 sys.path.append('../../../fst_util')
 sys.path.append('../..')
 from statgram.harmony import *
 from fst_util import fst_config, fst_util
+
 FST, Transition = fst_util.FST, fst_util.Transition
 
-fstat = {0:HGStat, 1:OTStat}[0]
+fstat = {0: HGStat, 1: OTStat}[0]
 
 # # # # # # # # # #
 # Alphabet
 fst_config.Sigma = {
-    'p',    't',    'tʃ',   'k',    'q',            # plain
-    'pʰ',   'tʰ',   'tʃʰ',  'kʰ',   'qʰ',           # aspirate
-    'pʼ',   'tʼ',   'tʃʼ',  'kʼ',   'qʼ',           # ejective
-            's',    'ʃ',                   'h',     # fricative
-    'm',    'n',    'ɲ',                            # nasal
-            'l', 'ɾ', 'ʎ',                          # liquid
-            'j',            'w',                    # glide
-    'i', 'e', 'a', 'o', 'u'                         # vowel
-    }
+    'p',
+    't',
+    'tʃ',
+    'k',
+    'q',  # plain
+    'pʰ',
+    'tʰ',
+    'tʃʰ',
+    'kʰ',
+    'qʰ',  # aspirate
+    'pʼ',
+    'tʼ',
+    'tʃʼ',
+    'kʼ',
+    'qʼ',  # ejective
+    's',
+    'ʃ',
+    'h',  # fricative
+    'm',
+    'n',
+    'ɲ',  # nasal
+    'l',
+    'ɾ',
+    'ʎ',  # liquid
+    'j',
+    'w',  # glide
+    'i',
+    'e',
+    'a',
+    'o',
+    'u'  # vowel
+}
 #fst_config.Sigma = {    # simplified for testing
 #    'p', 'q',
 #    'i', 'e', 'a', 'o', 'u'
@@ -33,7 +58,7 @@ consonants = [x for x in fst_config.Sigma \
 
 # # # # # # # # # #
 # Gen
-# Left-context machine with two-segment history
+# Left-context machine with one-segment history
 M_left = fst_util.left_context_acceptor(length=1)
 print(f'M_left: {len(M_left.Q)} states, {len(M_left.T)} transitions')
 fst_util.draw(M_left, 'Left_context.dot')
@@ -51,42 +76,44 @@ M = fst_util.map_states(M, lambda q: (q[0][0], q[1][0]))
 print(f'M: {len(M.Q)} states, {len(M.T)} transitions')
 Gen = M
 
-
 # # # # # # # # # #
 # Con
-left_context = lambda t: t.src[0] # label of state in M_left
-right_context = lambda t: t.dest[1] # label of state in M_right
+left_context = lambda t: t.src[0]  # label of state in M_left
+right_context = lambda t: t.dest[1]  # label of state in M_right
+
 
 def Lower(t):
+    v = 0
     prec, x, succ = \
         left_context(t), t.olabel, right_context(t)
-    v = 0
     if re.search('[q]', prec) or \
       re.search('[q]', succ):
         if re.search('[eoa]', x):
             v = +1
         elif re.search('[iu]', x):
             v = -1
-    return Mark('Lower', v, subnode = 'high')
+    return Mark('Lower', v, subnode='high')
+
 
 def NoMid(t):
-    x = t.olabel
     v = 0
+    x = t.olabel
     if re.search('[iu]', x):
         v = +1
     elif re.search('[eo]', x):
         v = -1
-    return Mark('NoMid', v, subnode = 'high')
+    return Mark('NoMid', v, subnode='high')
+
 
 def SyllStruc(t):
+    v = 0
     prec, x, succ = \
         left_context(t), t.olabel, right_context(t)
-    v = 0
-    if (prec == fst_config.begin_delim or prec in consonants) \
-      and (succ == fst_config.end_delim or succ in consonants) \
+    if (prec == fst_config.bos or prec in consonants) \
+      and (succ == fst_config.eos or succ in consonants) \
       and x in consonants: # no <CC, CC>, <C>, CCC
         v = -1
-    elif (prec == fst_config.begin_delim or prec in vowels) \
+    elif (prec == fst_config.bos or prec in vowels) \
       and x in vowels: # no <V, VV
         v = -1
     return Mark('SyllStruc', v)
@@ -95,11 +122,10 @@ def SyllStruc(t):
 # # # # # # # # # #
 # Eval
 Con = [Lower, NoMid, SyllStruc]
-weights = {'Lower': 2.0, 'NoMid': 1.0, 'SyllStruc':10.0}
+weights = {'Lower': 2.0, 'NoMid': 1.0, 'SyllStruc': 10.0}
 
 # Assign marks to transitions and prune
-fignore = lambda t : (t.olabel in [fst_config.begin_delim,
-                                   fst_config.end_delim])
+fignore = lambda t: (t.olabel in [fst_config.bos, fst_config.eos])
 markup = Eval(Gen.T, Con, fignore)
 _, nodes_ill = Stat(markup, weights, fstat)
 for node in nodes_ill:
@@ -108,7 +134,6 @@ Lang = fst_util.connect(Gen)
 print(f'Lang: {len(Lang.Q)} states, {len(Lang.T)} transitions')
 fst_util.draw(Lang, 'Lang.dot')
 # dot -Tpdf Lang.dot > Lang.pdf
-
 
 # # # # # # # # # #
 # Outputs

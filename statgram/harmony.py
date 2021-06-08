@@ -4,8 +4,8 @@ from collections import namedtuple
 
 
 # Mark with value v assigned by constraint c, 
-# optionally specifying subnode to which mark is assigned 
-# (default subnode is the 'root' denoted with '•')
+# optionally specifying subnode to which mark is assigned; 
+# default subnode is 'root' of the node, denoted by •
 Mark = namedtuple('Mark', ['c', 'v', 'subnode'],
                     defaults = [None, 0, '•'])
 
