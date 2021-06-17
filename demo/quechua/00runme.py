@@ -1,25 +1,27 @@
 # -*- coding: utf-8 -*-
 
-import re, sys
-import itertools
+import collections, itertools, re, sys
+from pathlib import Path
 
-sys.path.append('../../../fst_util')
-sys.path.append('../..')
-from statgram.harmony import *
-from fst_util import fst_config, fst_util
+sys.path.append(str(Path.home() / 'Code/Python/fst_util'))
+from fst_util import fst_config
+from fst_util.fst import *
 
-FST, Transition = fst_util.FST, fst_util.Transition
+sys.path.append(str(Path.home() / 'Code/Python/statgram'))
+from statgram.harmony import Mark, MarkedNode, Eval, HGStat, OTStat, Stat
 
+StrArc = collections.namedtuple('StrArc', \
+    ['src', 'ilabel', 'olabel', 'dest'])
 fstat = {0: HGStat, 1: OTStat}[0]
 
 # # # # # # # # # #
 # Alphabet
-fst_config.Sigma = {
-    'p',  # plain
+sigma = {
+    'p',
     't',
     'tʃ',
     'k',
-    'q',
+    'q',  # plain
     'pʰ',  # aspirate
     'tʰ',
     'tʃʰ',
@@ -47,47 +49,52 @@ fst_config.Sigma = {
     'o',
     'u'
 }
-#fst_config.Sigma = {    # simplified for testing
-#    'p', 'q',
-#    'i', 'e', 'a', 'o', 'u'
-#    }
-print(f'|Sigma| = {len(fst_config.Sigma)}')
+sigma = ['p', 'q', 'u', 'o', 'a']  # small Sigma for testing
+fst_config.init(list(sigma))
+print(f'|Sigma| = {len(sigma)}')
+print(fst_config.sigma)
 vowels = ['i', 'e', 'a', 'o', 'u']
-consonants = [x for x in fst_config.Sigma \
+consonants = [x for x in fst_config.sigma \
                 if x not in vowels]
 
 # # # # # # # # # #
 # Gen
 # Left-context machine with one-segment history
-M_left = fst_util.left_context_acceptor(length=1)
-print(f'M_left: {len(M_left.Q)} states, {len(M_left.T)} transitions')
-fst_util.draw(M_left, 'Left_context.dot')
+M_left = left_context_acceptor(context_length=1)
+print(f'M_left: {M_left.num_states()} states, ' \
+      f'{M_left.num_arcs()} arcs')
+M_left.draw('Left_context.dot')
 # dot -Tpdf Left_context.dot > Left_context.pdf
 
 # Right-context machine with one-segment lookahead
-M_right = fst_util.right_context_acceptor(length=1)
-print(f'M_right: {len(M_right.Q)} states, {len(M_right.T)} transitions')
-fst_util.draw(M_right, 'Right_context.dot')
+M_right = right_context_acceptor(context_length=1)
+print(f'M_right: {M_right.num_states()} states, ' \
+      f'{M_right.num_arcs()} arcs')
+M_right.draw('Right_context.dot')
 # dot -Tpdf Right_context.dot > Right_context.pdf
 
 # Combined machine with one-segment history and lookahead
-M = fst_util.intersect(M_left, M_right)
-M = fst_util.map_states(M, lambda q: (q[0][0], q[1][0]))
-print(f'M: {len(M.Q)} states, {len(M.T)} transitions')
-Gen = M
+Gen = compose(M_left, M_right)
+#M = fst_util.map_states(M, lambda q: (q[0][0], q[1][0]))
+print(f'Gen: {Gen.num_states()} states, ' \
+      f'{Gen.num_arcs()} arcs')
+Gen.draw('Gen.dot')
+# dot -Tpdf Gen_nasal.dot > Gen_nasal.pdf
 
 # # # # # # # # # #
 # Con
-left_context = lambda t: t.src[0]  # label of state in M_left
-right_context = lambda t: t.dest[1]  # label of state in M_right
+# Preceding symbol (last symbol of left-hand context)
+get_prec = lambda t: t.src[0][-1]
+# Following symbol (first symbol of right-hand context)
+get_succ = lambda t: t.dest[1][0]
 
 
 def Lower(t):
+    # Vowels should be [-high] when adjacent to uvulars
     v = 0
     prec, x, succ = \
-        left_context(t), t.olabel, right_context(t)
-    if re.search('[q]', prec) or \
-      re.search('[q]', succ):
+        get_prec(t), t.olabel, get_succ(t)
+    if re.search('[q]', prec) or re.search('[q]', succ):
         if re.search('[eoa]', x):
             v = +1
         elif re.search('[iu]', x):
@@ -96,6 +103,7 @@ def Lower(t):
 
 
 def NoMid(t):
+    # Non-low vowels should be [+high]
     v = 0
     x = t.olabel
     if re.search('[iu]', x):
@@ -107,14 +115,13 @@ def NoMid(t):
 
 def SyllStruc(t):
     v = 0
-    prec, x, succ = \
-        left_context(t), t.olabel, right_context(t)
+    prec, x, succ = get_prec(t), t.olabel, get_succ(t)
     if (prec == fst_config.bos or prec in consonants) \
       and (succ == fst_config.eos or succ in consonants) \
-      and x in consonants: # no <CC, CC>, <C>, CCC
+      and x in consonants: # No #CC, CC#, #C#, CCC
         v = -1
     elif (prec == fst_config.bos or prec in vowels) \
-      and x in vowels: # no <V, VV
+      and x in vowels: # No <V, VV
         v = -1
     return Mark('SyllStruc', v)
 
@@ -125,20 +132,31 @@ Con = [Lower, NoMid, SyllStruc]
 weights = {'Lower': 2.0, 'NoMid': 1.0, 'SyllStruc': 10.0}
 
 # Assign marks to transitions and prune
+arc_map = {}
+for src in Gen.states():
+    for t in Gen.arcs(src):
+        s = StrArc(
+            Gen.state_label(src), Gen.input_label(t.ilabel),
+            Gen.output_label(t.olabel), Gen.state_label(t.nextstate))
+        arc_map[s] = (src, t)
+
 fignore = lambda t: (t.olabel in [fst_config.bos, fst_config.eos])
-markup = Eval(Gen.T, Con, fignore)
+T = arc_map.keys()
+markup = Eval(T, Con, fignore)
 _, nodes_ill = Stat(markup, weights, fstat)
-for node in nodes_ill:
-    Gen.T.remove(node.n)
-Lang = fst_util.connect(Gen)
-print(f'Lang: {len(Lang.Q)} states, {len(Lang.T)} transitions')
-fst_util.draw(Lang, 'Lang.dot')
+dead_arcs = [marked_node.n for marked_node in nodes_ill]
+dead_arcs = [arc_map[s] for s in dead_arcs]
+Lang = Gen.delete_arcs(dead_arcs)
+print(f'Lang: {Lang.num_states()} states, ' \
+      f'{Lang.num_arcs()} arcs')
+Lang.draw('Lang_nasal.dot')
+
 # dot -Tpdf Lang.dot > Lang.pdf
 
 # # # # # # # # # #
 # Outputs
 #Output = fst_util.intersect(Lang, fst_util.trellis(4))
 #fst_util.draw(Output, 'Output.dot')
-outputs = fst_util.accepted_strings(Lang, 3)
+outputs = accepted_strings(Lang, max_len=3)
 print('All legal words with <= 3 segments:')
 print(outputs)

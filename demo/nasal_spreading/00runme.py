@@ -3,18 +3,16 @@
 import collections, itertools, re, sys
 from pathlib import Path
 
-sys.path.append(str(Path.home() / 'Code/Python/statgram'))
-from statgram.harmony import Mark, MarkedNode, Eval, \
-    HGStat, OTStat, Stat
-
 sys.path.append(str(Path.home() / 'Code/Python/fst_util'))
 from fst_util import fst_config
 from fst_util.fst import *
 
+sys.path.append(str(Path.home() / 'Code/Python/statgram'))
+from statgram.harmony import Mark, MarkedNode, Eval, HGStat, OTStat, Stat
+
+
 StrArc = collections.namedtuple('StrArc', \
     ['src', 'ilabel', 'olabel', 'dest'])
-#FST, Transition = fst_util.FST, fst_util.Transition
-
 spread_direction = {0: 'LR->', 1: '<-RL'}[0]
 fstat = {0: HGStat, 1: OTStat}[0]
 
@@ -111,22 +109,27 @@ if spread_direction == 'LR->':
     Gen = compose(M_span, M_left)
 else:
     Gen = compose(M_span, M_right)
-# xxx Gen = fst_util.map_states(Gen, lambda q: (q[0], q[1][0]))
 print(f'Gen: {Gen.num_states()} states, ' \
       f'{Gen.num_arcs()} arcs')
 Gen.draw('Gen_nasal.dot')
 
 # dot -Tpdf Gen_nasal.dot > Gen_nasal.pdf
 
-
 # # # # # # # # # #
 # Con
+# Preceding symbol (last symbol of left-hand context)
+get_prec = lambda t: t.src[1][-1]
+# Following symbol (first symbol of right-hand context)
+get_succ = lambda t: t.dest[1][0]
+
+
 def NasN(t):
+    # Nasals must be [+nasal] and span heads
     v = 0
-    label = t.olabel
-    if re.search('[N]', label):
+    x = t.olabel
+    if re.search('[N]', x):
         #if re.search('[-]', label): # N must be [+nasal]
-        if re.search('1', label):  # N must be head of +nasal span
+        if re.search('1', x):  # N must be head of +nasal span
             v = +1
         else:
             v = -1
@@ -134,10 +137,11 @@ def NasN(t):
 
 
 def NoNasObs(t):
+    # Obstruents must be [-nasal]
     v = 0
-    label = t.olabel
-    if re.search('[TS]', label):
-        if re.search('[-]', label):  # obstruent must be [-nasal]
+    x = t.olabel
+    if re.search('[TS]', x):
+        if re.search('[-]', x):
             v = +1
         else:
             v = -1
@@ -145,10 +149,11 @@ def NoNasObs(t):
 
 
 def NoNasVoc(t):
+    # Vocoids must be [-nasal]
     v = 0
-    label = t.olabel
-    if re.search('[GV]', label):
-        if re.search('[-]', label):  # vocoid must be [-nasal]
+    x = t.olabel
+    if re.search('[GV]', x):
+        if re.search('[-]', x):
             v = +1
         else:
             v = -1
@@ -156,51 +161,49 @@ def NoNasVoc(t):
 
 
 def SpreadNasR(t):
+    # Segments immediately following span members must be dependents
     v = 0
-    left_context, label = \
-        t.src[1], t.olabel
-    if re.search('[)|]', left_context[-1]):  # I shoulda been a dependent
+    prec, x = get_prec(t), t.olabel
+    if re.search('[)|]', prec):  # Preceded by span edge
         v = -1
-    elif re.search('[(+]', left_context[-1]) \
-        and re.search('0[+)]', label):
+    elif re.search('[(+]', prec) \
+        and re.search('0[+)]', x): # Dependent
         v = +1
     return Mark('SpreadNasR', v, subnode='nasal')
 
 
 def SpreadNasL(t):
+    # Segments immediately preceded by span members must be dependents
     v = 0
-    right_context, label = \
-        t.dest[1], t.olabel
-    if re.search('[(|]', right_context[0]):  # I shoulda been a dependent
+    x, succ = x, get_succ(t)
+    if re.search('[(|]', succ):  # Followed by span edge
         v = -1
-    elif re.search('[)+]', right_context[0]) \
-        and re.search('0[+(]', label):
+    elif re.search('[)+]', succ) \
+        and re.search('0[+(]', x): # Dependent
         v = +1
     return Mark('SpreadNasL', v, subnode='nasal')
 
 
 def SyllStrucR(t):
     v = 0
-    left_context, label = \
-        t.src[1], t.olabel
-    if re.search('[TSNG]', left_context[-1]) \
-        and re.search('[TSNG]', label): # no clusters
+    prec, x = get_prec(t), t.olabel
+    if re.search('[TSNG]', prec) \
+        and re.search('[TSNG]', x): # No clusters
         v = -1
-    elif re.search('[V]', left_context[-1]) \
-        and re.search('[V]', label): # no hiatus
+    elif re.search('[V]', prec) \
+        and re.search('[V]', x): # No hiatus
         v = -1
     return Mark('SyllStrucR', v)
 
 
 def SyllStrucL(t):
     v = 0
-    right_context, label = \
-        t.dest[1], t.olabel
-    if re.search('[TSNG]', right_context[0]) \
-        and re.search('[TSNG]', label): # no clusters
+    x, succ = t.olabel, get_succ(t)
+    if re.search('[TSNG]', succ) \
+        and re.search('[TSNG]', x): # No clusters
         v = -1
-    elif re.search('[V]', right_context[0]) \
-        and re.search('[V]', label): # no hiatus
+    elif re.search('[V]', succ) \
+        and re.search('[V]', x): # No hiatus
         v = -1
     return Mark('SyllStrucL', v)
 
@@ -233,15 +236,10 @@ markup = Eval(T, Con, fignore)
 _, nodes_ill = Stat(markup, weights, fstat)
 dead_arcs = [marked_node.n for marked_node in nodes_ill]
 dead_arcs = [arc_map[s] for s in dead_arcs]
-print(f'{len(dead_arcs)} dead arcs')
-Gen = Gen.delete_arcs(dead_arcs)
-print(Gen.num_arcs())
-Lang = Gen
-#Lang = Gen.connect()
+Lang = Gen.delete_arcs(dead_arcs)
 print(f'Lang: {Lang.num_states()} states, ' \
       f'{Lang.num_arcs()} arcs')
 Lang.draw('Lang_nasal.dot')
-print(Lang.print())
 # dot -Tpdf Lang_nasal.dot > Lang_nasal.pdf
 
 # # # # # # # # # #
