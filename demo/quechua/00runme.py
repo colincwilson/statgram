@@ -15,37 +15,37 @@ fstat = {0: HGStat, 1: OTStat}[0]
 # # # # # # # # # #
 # Alphabet
 fst_config.Sigma = {
-    'p',
+    'p',  # plain
     't',
     'tʃ',
     'k',
-    'q',  # plain
-    'pʰ',
+    'q',
+    'pʰ',  # aspirate
     'tʰ',
     'tʃʰ',
     'kʰ',
-    'qʰ',  # aspirate
-    'pʼ',
+    'qʰ',
+    'pʼ',  # ejective
     'tʼ',
     'tʃʼ',
     'kʼ',
-    'qʼ',  # ejective
-    's',
+    'qʼ',
+    's',  # fricative
     'ʃ',
-    'h',  # fricative
-    'm',
+    'h',
+    'm',  # nasal
     'n',
-    'ɲ',  # nasal
-    'l',
+    'ɲ',
+    'l',  # liquid
     'ɾ',
-    'ʎ',  # liquid
+    'ʎ',  # glide
     'j',
-    'w',  # glide
-    'i',
+    'w',
+    'i',  # vowel
     'e',
     'a',
     'o',
-    'u'  # vowel
+    'u'
 }
 #fst_config.Sigma = {    # simplified for testing
 #    'p', 'q',

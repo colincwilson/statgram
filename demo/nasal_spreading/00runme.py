@@ -3,13 +3,13 @@
 import collections, itertools, re, sys
 from pathlib import Path
 
-sys.path.append(str(Path('../..')))
-sys.path.append(str(Path.home() / 'Code/Python/fst_util'))
+sys.path.append(str(Path.home() / 'Code/Python/statgram'))
 from statgram.harmony import Mark, MarkedNode, Eval, \
     HGStat, OTStat, Stat
+
+sys.path.append(str(Path.home() / 'Code/Python/fst_util'))
 from fst_util import fst_config
-from fst_util.fst_util import *
-#from fst_util import fst_config, fst_util
+from fst_util.fst import *
 
 StrArc = collections.namedtuple('StrArc', \
     ['src', 'ilabel', 'olabel', 'dest'])
@@ -55,7 +55,7 @@ def pretty_print_spans(form):
 # # # # # # # # # #
 # Gen
 # Headed +nasal spans
-M_span = Fst(config.symtable)
+M_span = Fst(fst_config.symtable)
 for q in range(6):
     M_span.add_state(q)
 M_span.set_start(0)

@@ -17,48 +17,48 @@ nodesep = "0.25";
 	1 -> 22 [label = "V0-", fontsize = 14];
 2 [label = "(5, ('⋉',))", shape = doublecircle, style = solid, fontsize = 14]
 3 [label = "(2, ('T1(',))", shape = circle, style = solid, fontsize = 14]
-	3 -> 31 [label = "V0+", fontsize = 14];
-	3 -> 32 [label = "V0)", fontsize = 14];
+	3 -> 46 [label = "V0+", fontsize = 14];
+	3 -> 47 [label = "V0)", fontsize = 14];
 4 [label = "(1, ('T1|',))", shape = circle, style = solid, fontsize = 14]
 	4 -> 2 [label = "⋉", fontsize = 14];
 5 [label = "(3, ('T0(',))", shape = circle, style = solid, fontsize = 14]
-	5 -> 47 [label = "V0+", fontsize = 14];
+	5 -> 37 [label = "V0+", fontsize = 14];
 6 [label = "(1, ('T0-',))", shape = circle, style = solid, fontsize = 14]
 	6 -> 2 [label = "⋉", fontsize = 14];
 	6 -> 22 [label = "V0-", fontsize = 14];
 7 [label = "(2, ('S1(',))", shape = circle, style = solid, fontsize = 14]
-	7 -> 31 [label = "V0+", fontsize = 14];
-	7 -> 32 [label = "V0)", fontsize = 14];
+	7 -> 46 [label = "V0+", fontsize = 14];
+	7 -> 47 [label = "V0)", fontsize = 14];
 8 [label = "(1, ('S1|',))", shape = circle, style = solid, fontsize = 14]
 	8 -> 2 [label = "⋉", fontsize = 14];
 9 [label = "(3, ('S0(',))", shape = circle, style = solid, fontsize = 14]
-	9 -> 47 [label = "V0+", fontsize = 14];
+	9 -> 37 [label = "V0+", fontsize = 14];
 10 [label = "(1, ('S0-',))", shape = circle, style = solid, fontsize = 14]
 	10 -> 2 [label = "⋉", fontsize = 14];
 	10 -> 22 [label = "V0-", fontsize = 14];
 11 [label = "(2, ('N1(',))", shape = circle, style = solid, fontsize = 14]
-	11 -> 31 [label = "V0+", fontsize = 14];
-	11 -> 32 [label = "V0)", fontsize = 14];
+	11 -> 46 [label = "V0+", fontsize = 14];
+	11 -> 47 [label = "V0)", fontsize = 14];
 12 [label = "(1, ('N1|',))", shape = circle, style = solid, fontsize = 14]
 	12 -> 2 [label = "⋉", fontsize = 14];
 13 [label = "(3, ('N0(',))", shape = circle, style = solid, fontsize = 14]
-	13 -> 47 [label = "V0+", fontsize = 14];
+	13 -> 37 [label = "V0+", fontsize = 14];
 14 [label = "(1, ('N0-',))", shape = circle, style = solid, fontsize = 14]
 	14 -> 2 [label = "⋉", fontsize = 14];
 	14 -> 22 [label = "V0-", fontsize = 14];
 15 [label = "(2, ('G1(',))", shape = circle, style = solid, fontsize = 14]
-	15 -> 31 [label = "V0+", fontsize = 14];
-	15 -> 32 [label = "V0)", fontsize = 14];
+	15 -> 46 [label = "V0+", fontsize = 14];
+	15 -> 47 [label = "V0)", fontsize = 14];
 16 [label = "(1, ('G1|',))", shape = circle, style = solid, fontsize = 14]
 	16 -> 2 [label = "⋉", fontsize = 14];
 17 [label = "(3, ('G0(',))", shape = circle, style = solid, fontsize = 14]
-	17 -> 47 [label = "V0+", fontsize = 14];
+	17 -> 37 [label = "V0+", fontsize = 14];
 18 [label = "(1, ('G0-',))", shape = circle, style = solid, fontsize = 14]
 	18 -> 2 [label = "⋉", fontsize = 14];
 	18 -> 22 [label = "V0-", fontsize = 14];
 19 [label = "(2, ('V1(',))", shape = circle, style = solid, fontsize = 14]
-	19 -> 29 [label = "G0+", fontsize = 14];
-	19 -> 30 [label = "G0)", fontsize = 14];
+	19 -> 44 [label = "G0+", fontsize = 14];
+	19 -> 45 [label = "G0)", fontsize = 14];
 20 [label = "(1, ('V1|',))", shape = circle, style = solid, fontsize = 14]
 	20 -> 2 [label = "⋉", fontsize = 14];
 	20 -> 6 [label = "T0-", fontsize = 14];
@@ -66,9 +66,9 @@ nodesep = "0.25";
 	20 -> 11 [label = "N1(", fontsize = 14];
 	20 -> 12 [label = "N1|", fontsize = 14];
 21 [label = "(3, ('V0(',))", shape = circle, style = solid, fontsize = 14]
-	21 -> 39 [label = "N1+", fontsize = 14];
-	21 -> 40 [label = "N1)", fontsize = 14];
-	21 -> 44 [label = "G0+", fontsize = 14];
+	21 -> 29 [label = "N1+", fontsize = 14];
+	21 -> 30 [label = "N1)", fontsize = 14];
+	21 -> 34 [label = "G0+", fontsize = 14];
 22 [label = "(1, ('V0-',))", shape = circle, style = solid, fontsize = 14]
 	22 -> 2 [label = "⋉", fontsize = 14];
 	22 -> 6 [label = "T0-", fontsize = 14];
@@ -76,89 +76,89 @@ nodesep = "0.25";
 	22 -> 11 [label = "N1(", fontsize = 14];
 	22 -> 12 [label = "N1|", fontsize = 14];
 	22 -> 18 [label = "G0-", fontsize = 14];
-23 [label = "(2, ('T0+',))", shape = circle, style = solid, fontsize = 14]
-	23 -> 31 [label = "V0+", fontsize = 14];
-	23 -> 32 [label = "V0)", fontsize = 14];
-24 [label = "(1, ('T0)',))", shape = circle, style = solid, fontsize = 14]
+23 [label = "(4, ('T1+',))", shape = circle, style = solid, fontsize = 14]
+	23 -> 52 [label = "V0+", fontsize = 14];
+	23 -> 47 [label = "V0)", fontsize = 14];
+24 [label = "(1, ('T1)',))", shape = circle, style = solid, fontsize = 14]
 	24 -> 2 [label = "⋉", fontsize = 14];
-25 [label = "(2, ('S0+',))", shape = circle, style = solid, fontsize = 14]
-	25 -> 31 [label = "V0+", fontsize = 14];
-	25 -> 32 [label = "V0)", fontsize = 14];
-26 [label = "(1, ('S0)',))", shape = circle, style = solid, fontsize = 14]
-	26 -> 2 [label = "⋉", fontsize = 14];
-27 [label = "(2, ('N0+',))", shape = circle, style = solid, fontsize = 14]
-	27 -> 31 [label = "V0+", fontsize = 14];
-	27 -> 32 [label = "V0)", fontsize = 14];
-28 [label = "(1, ('N0)',))", shape = circle, style = solid, fontsize = 14]
-	28 -> 2 [label = "⋉", fontsize = 14];
-29 [label = "(2, ('G0+',))", shape = circle, style = solid, fontsize = 14]
-	29 -> 31 [label = "V0+", fontsize = 14];
-	29 -> 32 [label = "V0)", fontsize = 14];
-30 [label = "(1, ('G0)',))", shape = circle, style = solid, fontsize = 14]
+25 [label = "(3, ('T0+',))", shape = circle, style = solid, fontsize = 14]
+	25 -> 37 [label = "V0+", fontsize = 14];
+26 [label = "(4, ('S1+',))", shape = circle, style = solid, fontsize = 14]
+	26 -> 52 [label = "V0+", fontsize = 14];
+	26 -> 47 [label = "V0)", fontsize = 14];
+27 [label = "(1, ('S1)',))", shape = circle, style = solid, fontsize = 14]
+	27 -> 2 [label = "⋉", fontsize = 14];
+28 [label = "(3, ('S0+',))", shape = circle, style = solid, fontsize = 14]
+	28 -> 37 [label = "V0+", fontsize = 14];
+29 [label = "(4, ('N1+',))", shape = circle, style = solid, fontsize = 14]
+	29 -> 52 [label = "V0+", fontsize = 14];
+	29 -> 47 [label = "V0)", fontsize = 14];
+30 [label = "(1, ('N1)',))", shape = circle, style = solid, fontsize = 14]
 	30 -> 2 [label = "⋉", fontsize = 14];
-31 [label = "(2, ('V0+',))", shape = circle, style = solid, fontsize = 14]
-	31 -> 29 [label = "G0+", fontsize = 14];
-	31 -> 30 [label = "G0)", fontsize = 14];
-32 [label = "(1, ('V0)',))", shape = circle, style = solid, fontsize = 14]
-	32 -> 2 [label = "⋉", fontsize = 14];
-	32 -> 6 [label = "T0-", fontsize = 14];
-	32 -> 10 [label = "S0-", fontsize = 14];
-	32 -> 11 [label = "N1(", fontsize = 14];
-	32 -> 12 [label = "N1|", fontsize = 14];
-33 [label = "(4, ('T1+',))", shape = circle, style = solid, fontsize = 14]
-	33 -> 52 [label = "V0+", fontsize = 14];
-	33 -> 32 [label = "V0)", fontsize = 14];
-34 [label = "(1, ('T1)',))", shape = circle, style = solid, fontsize = 14]
-	34 -> 2 [label = "⋉", fontsize = 14];
-35 [label = "(3, ('T0+',))", shape = circle, style = solid, fontsize = 14]
-	35 -> 47 [label = "V0+", fontsize = 14];
-36 [label = "(4, ('S1+',))", shape = circle, style = solid, fontsize = 14]
-	36 -> 52 [label = "V0+", fontsize = 14];
-	36 -> 32 [label = "V0)", fontsize = 14];
-37 [label = "(1, ('S1)',))", shape = circle, style = solid, fontsize = 14]
-	37 -> 2 [label = "⋉", fontsize = 14];
-38 [label = "(3, ('S0+',))", shape = circle, style = solid, fontsize = 14]
-	38 -> 47 [label = "V0+", fontsize = 14];
-39 [label = "(4, ('N1+',))", shape = circle, style = solid, fontsize = 14]
-	39 -> 52 [label = "V0+", fontsize = 14];
-	39 -> 32 [label = "V0)", fontsize = 14];
-40 [label = "(1, ('N1)',))", shape = circle, style = solid, fontsize = 14]
-	40 -> 2 [label = "⋉", fontsize = 14];
-41 [label = "(3, ('N0+',))", shape = circle, style = solid, fontsize = 14]
-	41 -> 47 [label = "V0+", fontsize = 14];
-42 [label = "(4, ('G1+',))", shape = circle, style = solid, fontsize = 14]
-	42 -> 52 [label = "V0+", fontsize = 14];
-	42 -> 32 [label = "V0)", fontsize = 14];
-43 [label = "(1, ('G1)',))", shape = circle, style = solid, fontsize = 14]
+31 [label = "(3, ('N0+',))", shape = circle, style = solid, fontsize = 14]
+	31 -> 37 [label = "V0+", fontsize = 14];
+32 [label = "(4, ('G1+',))", shape = circle, style = solid, fontsize = 14]
+	32 -> 52 [label = "V0+", fontsize = 14];
+	32 -> 47 [label = "V0)", fontsize = 14];
+33 [label = "(1, ('G1)',))", shape = circle, style = solid, fontsize = 14]
+	33 -> 2 [label = "⋉", fontsize = 14];
+34 [label = "(3, ('G0+',))", shape = circle, style = solid, fontsize = 14]
+	34 -> 37 [label = "V0+", fontsize = 14];
+35 [label = "(4, ('V1+',))", shape = circle, style = solid, fontsize = 14]
+	35 -> 51 [label = "G0+", fontsize = 14];
+	35 -> 45 [label = "G0)", fontsize = 14];
+36 [label = "(1, ('V1)',))", shape = circle, style = solid, fontsize = 14]
+	36 -> 2 [label = "⋉", fontsize = 14];
+	36 -> 6 [label = "T0-", fontsize = 14];
+	36 -> 10 [label = "S0-", fontsize = 14];
+	36 -> 11 [label = "N1(", fontsize = 14];
+	36 -> 12 [label = "N1|", fontsize = 14];
+37 [label = "(3, ('V0+',))", shape = circle, style = solid, fontsize = 14]
+	37 -> 29 [label = "N1+", fontsize = 14];
+	37 -> 30 [label = "N1)", fontsize = 14];
+	37 -> 34 [label = "G0+", fontsize = 14];
+38 [label = "(2, ('T0+',))", shape = circle, style = solid, fontsize = 14]
+	38 -> 46 [label = "V0+", fontsize = 14];
+	38 -> 47 [label = "V0)", fontsize = 14];
+39 [label = "(1, ('T0)',))", shape = circle, style = solid, fontsize = 14]
+	39 -> 2 [label = "⋉", fontsize = 14];
+40 [label = "(2, ('S0+',))", shape = circle, style = solid, fontsize = 14]
+	40 -> 46 [label = "V0+", fontsize = 14];
+	40 -> 47 [label = "V0)", fontsize = 14];
+41 [label = "(1, ('S0)',))", shape = circle, style = solid, fontsize = 14]
+	41 -> 2 [label = "⋉", fontsize = 14];
+42 [label = "(2, ('N0+',))", shape = circle, style = solid, fontsize = 14]
+	42 -> 46 [label = "V0+", fontsize = 14];
+	42 -> 47 [label = "V0)", fontsize = 14];
+43 [label = "(1, ('N0)',))", shape = circle, style = solid, fontsize = 14]
 	43 -> 2 [label = "⋉", fontsize = 14];
-44 [label = "(3, ('G0+',))", shape = circle, style = solid, fontsize = 14]
-	44 -> 47 [label = "V0+", fontsize = 14];
-45 [label = "(4, ('V1+',))", shape = circle, style = solid, fontsize = 14]
-	45 -> 51 [label = "G0+", fontsize = 14];
-	45 -> 30 [label = "G0)", fontsize = 14];
-46 [label = "(1, ('V1)',))", shape = circle, style = solid, fontsize = 14]
-	46 -> 2 [label = "⋉", fontsize = 14];
-	46 -> 6 [label = "T0-", fontsize = 14];
-	46 -> 10 [label = "S0-", fontsize = 14];
-	46 -> 11 [label = "N1(", fontsize = 14];
-	46 -> 12 [label = "N1|", fontsize = 14];
-47 [label = "(3, ('V0+',))", shape = circle, style = solid, fontsize = 14]
-	47 -> 39 [label = "N1+", fontsize = 14];
-	47 -> 40 [label = "N1)", fontsize = 14];
-	47 -> 44 [label = "G0+", fontsize = 14];
+44 [label = "(2, ('G0+',))", shape = circle, style = solid, fontsize = 14]
+	44 -> 46 [label = "V0+", fontsize = 14];
+	44 -> 47 [label = "V0)", fontsize = 14];
+45 [label = "(1, ('G0)',))", shape = circle, style = solid, fontsize = 14]
+	45 -> 2 [label = "⋉", fontsize = 14];
+46 [label = "(2, ('V0+',))", shape = circle, style = solid, fontsize = 14]
+	46 -> 44 [label = "G0+", fontsize = 14];
+	46 -> 45 [label = "G0)", fontsize = 14];
+47 [label = "(1, ('V0)',))", shape = circle, style = solid, fontsize = 14]
+	47 -> 2 [label = "⋉", fontsize = 14];
+	47 -> 6 [label = "T0-", fontsize = 14];
+	47 -> 10 [label = "S0-", fontsize = 14];
+	47 -> 11 [label = "N1(", fontsize = 14];
+	47 -> 12 [label = "N1|", fontsize = 14];
 48 [label = "(4, ('T0+',))", shape = circle, style = solid, fontsize = 14]
 	48 -> 52 [label = "V0+", fontsize = 14];
-	48 -> 32 [label = "V0)", fontsize = 14];
+	48 -> 47 [label = "V0)", fontsize = 14];
 49 [label = "(4, ('S0+',))", shape = circle, style = solid, fontsize = 14]
 	49 -> 52 [label = "V0+", fontsize = 14];
-	49 -> 32 [label = "V0)", fontsize = 14];
+	49 -> 47 [label = "V0)", fontsize = 14];
 50 [label = "(4, ('N0+',))", shape = circle, style = solid, fontsize = 14]
 	50 -> 52 [label = "V0+", fontsize = 14];
-	50 -> 32 [label = "V0)", fontsize = 14];
+	50 -> 47 [label = "V0)", fontsize = 14];
 51 [label = "(4, ('G0+',))", shape = circle, style = solid, fontsize = 14]
 	51 -> 52 [label = "V0+", fontsize = 14];
-	51 -> 32 [label = "V0)", fontsize = 14];
+	51 -> 47 [label = "V0)", fontsize = 14];
 52 [label = "(4, ('V0+',))", shape = circle, style = solid, fontsize = 14]
 	52 -> 51 [label = "G0+", fontsize = 14];
-	52 -> 30 [label = "G0)", fontsize = 14];
+	52 -> 45 [label = "G0)", fontsize = 14];
 }
