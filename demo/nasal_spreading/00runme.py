@@ -23,7 +23,7 @@ sigma_head = ['1', '0']  # Head vs. dependent within span
 sigma_brack = ['(', '+', ')', '|', '-']  # Span specs
 sigma = itertools.product(sigma_seg, sigma_head, sigma_brack)
 sigma = [''.join(x) for x in sigma]
-fst_config.init(sigma)
+fst_config.init({'sigma': sigma})
 print(f'|Sigma| = {len(sigma)}')
 print(fst_config.sigma)
 

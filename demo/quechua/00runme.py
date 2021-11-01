@@ -50,7 +50,7 @@ sigma = {
     'u'
 }
 sigma = ['p', 'q', 'u', 'o', 'a']  # small Sigma for testing
-fst_config.init(list(sigma))
+fst_config.init({'sigma': list(sigma)})
 print(f'|Sigma| = {len(sigma)}')
 print(fst_config.sigma)
 vowels = ['i', 'e', 'a', 'o', 'u']
@@ -157,6 +157,6 @@ Lang.draw('Lang_nasal.dot')
 # Outputs
 #Output = fst_util.intersect(Lang, fst_util.trellis(4))
 #fst_util.draw(Output, 'Output.dot')
-outputs = accepted_strings(Lang, max_len=3)
-print('All legal words with <= 3 segments:')
+outputs = accepted_strings(Lang, max_len=4)
+print('All legal words with <= 4 segments:')
 print(outputs)

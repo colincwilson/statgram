@@ -12,227 +12,227 @@ nodesep = "0.25";
 	0 -> 4 [label = "⋊", fontsize = 14];
 	0 -> 5 [label = "⋊", fontsize = 14];
 	0 -> 6 [label = "⋊", fontsize = 14];
-1 [label = "(('⋊',), ('a',))", shape = circle, style = solid, fontsize = 14]
-	1 -> 32 [label = "a", fontsize = 14];
-	1 -> 33 [label = "a", fontsize = 14];
-	1 -> 34 [label = "a", fontsize = 14];
-	1 -> 35 [label = "a", fontsize = 14];
-	1 -> 36 [label = "a", fontsize = 14];
-	1 -> 37 [label = "a", fontsize = 14];
-2 [label = "(('⋊',), ('p',))", shape = circle, style = solid, fontsize = 14]
-	2 -> 7 [label = "p", fontsize = 14];
-	2 -> 8 [label = "p", fontsize = 14];
-	2 -> 9 [label = "p", fontsize = 14];
-	2 -> 10 [label = "p", fontsize = 14];
-	2 -> 11 [label = "p", fontsize = 14];
-	2 -> 12 [label = "p", fontsize = 14];
-3 [label = "(('⋊',), ('⋉',))", shape = circle, style = solid, fontsize = 14]
-	3 -> 13 [label = "⋉", fontsize = 14];
-4 [label = "(('⋊',), ('o',))", shape = circle, style = solid, fontsize = 14]
-	4 -> 14 [label = "o", fontsize = 14];
-	4 -> 15 [label = "o", fontsize = 14];
-	4 -> 16 [label = "o", fontsize = 14];
-	4 -> 17 [label = "o", fontsize = 14];
-	4 -> 18 [label = "o", fontsize = 14];
-	4 -> 19 [label = "o", fontsize = 14];
+1 [label = "(('⋊',), ('o',))", shape = circle, style = solid, fontsize = 14]
+	1 -> 26 [label = "o", fontsize = 14];
+	1 -> 27 [label = "o", fontsize = 14];
+	1 -> 28 [label = "o", fontsize = 14];
+	1 -> 29 [label = "o", fontsize = 14];
+	1 -> 30 [label = "o", fontsize = 14];
+	1 -> 31 [label = "o", fontsize = 14];
+2 [label = "(('⋊',), ('q',))", shape = circle, style = solid, fontsize = 14]
+	2 -> 32 [label = "q", fontsize = 14];
+	2 -> 33 [label = "q", fontsize = 14];
+	2 -> 34 [label = "q", fontsize = 14];
+	2 -> 35 [label = "q", fontsize = 14];
+	2 -> 36 [label = "q", fontsize = 14];
+	2 -> 37 [label = "q", fontsize = 14];
+3 [label = "(('⋊',), ('a',))", shape = circle, style = solid, fontsize = 14]
+	3 -> 14 [label = "a", fontsize = 14];
+	3 -> 15 [label = "a", fontsize = 14];
+	3 -> 16 [label = "a", fontsize = 14];
+	3 -> 17 [label = "a", fontsize = 14];
+	3 -> 18 [label = "a", fontsize = 14];
+	3 -> 19 [label = "a", fontsize = 14];
+4 [label = "(('⋊',), ('⋉',))", shape = circle, style = solid, fontsize = 14]
+	4 -> 7 [label = "⋉", fontsize = 14];
 5 [label = "(('⋊',), ('u',))", shape = circle, style = solid, fontsize = 14]
-	5 -> 26 [label = "u", fontsize = 14];
-	5 -> 27 [label = "u", fontsize = 14];
-	5 -> 28 [label = "u", fontsize = 14];
-	5 -> 29 [label = "u", fontsize = 14];
-	5 -> 30 [label = "u", fontsize = 14];
-	5 -> 31 [label = "u", fontsize = 14];
-6 [label = "(('⋊',), ('q',))", shape = circle, style = solid, fontsize = 14]
-	6 -> 20 [label = "q", fontsize = 14];
-	6 -> 21 [label = "q", fontsize = 14];
-	6 -> 22 [label = "q", fontsize = 14];
-	6 -> 23 [label = "q", fontsize = 14];
-	6 -> 24 [label = "q", fontsize = 14];
-	6 -> 25 [label = "q", fontsize = 14];
-7 [label = "(('p',), ('⋉',))", shape = circle, style = solid, fontsize = 14]
-	7 -> 13 [label = "⋉", fontsize = 14];
-8 [label = "(('p',), ('p',))", shape = circle, style = solid, fontsize = 14]
-	8 -> 7 [label = "p", fontsize = 14];
-	8 -> 8 [label = "p", fontsize = 14];
-	8 -> 9 [label = "p", fontsize = 14];
-	8 -> 10 [label = "p", fontsize = 14];
-	8 -> 11 [label = "p", fontsize = 14];
-	8 -> 12 [label = "p", fontsize = 14];
+	5 -> 20 [label = "u", fontsize = 14];
+	5 -> 21 [label = "u", fontsize = 14];
+	5 -> 22 [label = "u", fontsize = 14];
+	5 -> 23 [label = "u", fontsize = 14];
+	5 -> 24 [label = "u", fontsize = 14];
+	5 -> 25 [label = "u", fontsize = 14];
+6 [label = "(('⋊',), ('p',))", shape = circle, style = solid, fontsize = 14]
+	6 -> 8 [label = "p", fontsize = 14];
+	6 -> 9 [label = "p", fontsize = 14];
+	6 -> 10 [label = "p", fontsize = 14];
+	6 -> 11 [label = "p", fontsize = 14];
+	6 -> 12 [label = "p", fontsize = 14];
+	6 -> 13 [label = "p", fontsize = 14];
+7 [label = "(('⋉',), ('λ',))", shape = doublecircle, style = solid, fontsize = 14]
+8 [label = "(('p',), ('⋉',))", shape = circle, style = solid, fontsize = 14]
+	8 -> 7 [label = "⋉", fontsize = 14];
 9 [label = "(('p',), ('o',))", shape = circle, style = solid, fontsize = 14]
-	9 -> 14 [label = "o", fontsize = 14];
-	9 -> 15 [label = "o", fontsize = 14];
-	9 -> 16 [label = "o", fontsize = 14];
-	9 -> 17 [label = "o", fontsize = 14];
-	9 -> 18 [label = "o", fontsize = 14];
-	9 -> 19 [label = "o", fontsize = 14];
+	9 -> 26 [label = "o", fontsize = 14];
+	9 -> 27 [label = "o", fontsize = 14];
+	9 -> 28 [label = "o", fontsize = 14];
+	9 -> 29 [label = "o", fontsize = 14];
+	9 -> 30 [label = "o", fontsize = 14];
+	9 -> 31 [label = "o", fontsize = 14];
 10 [label = "(('p',), ('u',))", shape = circle, style = solid, fontsize = 14]
-	10 -> 26 [label = "u", fontsize = 14];
-	10 -> 27 [label = "u", fontsize = 14];
-	10 -> 28 [label = "u", fontsize = 14];
-	10 -> 29 [label = "u", fontsize = 14];
-	10 -> 30 [label = "u", fontsize = 14];
-	10 -> 31 [label = "u", fontsize = 14];
-11 [label = "(('p',), ('a',))", shape = circle, style = solid, fontsize = 14]
-	11 -> 32 [label = "a", fontsize = 14];
-	11 -> 33 [label = "a", fontsize = 14];
-	11 -> 34 [label = "a", fontsize = 14];
-	11 -> 35 [label = "a", fontsize = 14];
-	11 -> 36 [label = "a", fontsize = 14];
-	11 -> 37 [label = "a", fontsize = 14];
-12 [label = "(('p',), ('q',))", shape = circle, style = solid, fontsize = 14]
-	12 -> 20 [label = "q", fontsize = 14];
-	12 -> 21 [label = "q", fontsize = 14];
-	12 -> 22 [label = "q", fontsize = 14];
-	12 -> 23 [label = "q", fontsize = 14];
-	12 -> 24 [label = "q", fontsize = 14];
-	12 -> 25 [label = "q", fontsize = 14];
-13 [label = "(('⋉',), ('λ',))", shape = doublecircle, style = solid, fontsize = 14]
-14 [label = "(('o',), ('⋉',))", shape = circle, style = solid, fontsize = 14]
-	14 -> 13 [label = "⋉", fontsize = 14];
-15 [label = "(('o',), ('p',))", shape = circle, style = solid, fontsize = 14]
-	15 -> 7 [label = "p", fontsize = 14];
-	15 -> 8 [label = "p", fontsize = 14];
-	15 -> 9 [label = "p", fontsize = 14];
-	15 -> 10 [label = "p", fontsize = 14];
-	15 -> 11 [label = "p", fontsize = 14];
-	15 -> 12 [label = "p", fontsize = 14];
-16 [label = "(('o',), ('o',))", shape = circle, style = solid, fontsize = 14]
-	16 -> 14 [label = "o", fontsize = 14];
-	16 -> 15 [label = "o", fontsize = 14];
-	16 -> 16 [label = "o", fontsize = 14];
-	16 -> 17 [label = "o", fontsize = 14];
-	16 -> 18 [label = "o", fontsize = 14];
-	16 -> 19 [label = "o", fontsize = 14];
-17 [label = "(('o',), ('u',))", shape = circle, style = solid, fontsize = 14]
-	17 -> 26 [label = "u", fontsize = 14];
-	17 -> 27 [label = "u", fontsize = 14];
-	17 -> 28 [label = "u", fontsize = 14];
-	17 -> 29 [label = "u", fontsize = 14];
-	17 -> 30 [label = "u", fontsize = 14];
-	17 -> 31 [label = "u", fontsize = 14];
-18 [label = "(('o',), ('a',))", shape = circle, style = solid, fontsize = 14]
-	18 -> 32 [label = "a", fontsize = 14];
-	18 -> 33 [label = "a", fontsize = 14];
-	18 -> 34 [label = "a", fontsize = 14];
-	18 -> 35 [label = "a", fontsize = 14];
-	18 -> 36 [label = "a", fontsize = 14];
-	18 -> 37 [label = "a", fontsize = 14];
-19 [label = "(('o',), ('q',))", shape = circle, style = solid, fontsize = 14]
-	19 -> 20 [label = "q", fontsize = 14];
-	19 -> 21 [label = "q", fontsize = 14];
-	19 -> 22 [label = "q", fontsize = 14];
-	19 -> 23 [label = "q", fontsize = 14];
-	19 -> 24 [label = "q", fontsize = 14];
-	19 -> 25 [label = "q", fontsize = 14];
-20 [label = "(('q',), ('⋉',))", shape = circle, style = solid, fontsize = 14]
-	20 -> 13 [label = "⋉", fontsize = 14];
-21 [label = "(('q',), ('p',))", shape = circle, style = solid, fontsize = 14]
-	21 -> 7 [label = "p", fontsize = 14];
-	21 -> 8 [label = "p", fontsize = 14];
-	21 -> 9 [label = "p", fontsize = 14];
-	21 -> 10 [label = "p", fontsize = 14];
-	21 -> 11 [label = "p", fontsize = 14];
-	21 -> 12 [label = "p", fontsize = 14];
-22 [label = "(('q',), ('o',))", shape = circle, style = solid, fontsize = 14]
-	22 -> 14 [label = "o", fontsize = 14];
-	22 -> 15 [label = "o", fontsize = 14];
-	22 -> 16 [label = "o", fontsize = 14];
-	22 -> 17 [label = "o", fontsize = 14];
-	22 -> 18 [label = "o", fontsize = 14];
-	22 -> 19 [label = "o", fontsize = 14];
-23 [label = "(('q',), ('u',))", shape = circle, style = solid, fontsize = 14]
-	23 -> 26 [label = "u", fontsize = 14];
-	23 -> 27 [label = "u", fontsize = 14];
-	23 -> 28 [label = "u", fontsize = 14];
-	23 -> 29 [label = "u", fontsize = 14];
-	23 -> 30 [label = "u", fontsize = 14];
-	23 -> 31 [label = "u", fontsize = 14];
-24 [label = "(('q',), ('a',))", shape = circle, style = solid, fontsize = 14]
-	24 -> 32 [label = "a", fontsize = 14];
-	24 -> 33 [label = "a", fontsize = 14];
-	24 -> 34 [label = "a", fontsize = 14];
-	24 -> 35 [label = "a", fontsize = 14];
-	24 -> 36 [label = "a", fontsize = 14];
-	24 -> 37 [label = "a", fontsize = 14];
-25 [label = "(('q',), ('q',))", shape = circle, style = solid, fontsize = 14]
-	25 -> 20 [label = "q", fontsize = 14];
-	25 -> 21 [label = "q", fontsize = 14];
-	25 -> 22 [label = "q", fontsize = 14];
-	25 -> 23 [label = "q", fontsize = 14];
-	25 -> 24 [label = "q", fontsize = 14];
-	25 -> 25 [label = "q", fontsize = 14];
-26 [label = "(('u',), ('⋉',))", shape = circle, style = solid, fontsize = 14]
-	26 -> 13 [label = "⋉", fontsize = 14];
-27 [label = "(('u',), ('p',))", shape = circle, style = solid, fontsize = 14]
-	27 -> 7 [label = "p", fontsize = 14];
-	27 -> 8 [label = "p", fontsize = 14];
-	27 -> 9 [label = "p", fontsize = 14];
-	27 -> 10 [label = "p", fontsize = 14];
-	27 -> 11 [label = "p", fontsize = 14];
-	27 -> 12 [label = "p", fontsize = 14];
-28 [label = "(('u',), ('o',))", shape = circle, style = solid, fontsize = 14]
-	28 -> 14 [label = "o", fontsize = 14];
-	28 -> 15 [label = "o", fontsize = 14];
-	28 -> 16 [label = "o", fontsize = 14];
-	28 -> 17 [label = "o", fontsize = 14];
-	28 -> 18 [label = "o", fontsize = 14];
-	28 -> 19 [label = "o", fontsize = 14];
-29 [label = "(('u',), ('u',))", shape = circle, style = solid, fontsize = 14]
-	29 -> 26 [label = "u", fontsize = 14];
-	29 -> 27 [label = "u", fontsize = 14];
-	29 -> 28 [label = "u", fontsize = 14];
-	29 -> 29 [label = "u", fontsize = 14];
-	29 -> 30 [label = "u", fontsize = 14];
-	29 -> 31 [label = "u", fontsize = 14];
-30 [label = "(('u',), ('a',))", shape = circle, style = solid, fontsize = 14]
-	30 -> 32 [label = "a", fontsize = 14];
-	30 -> 33 [label = "a", fontsize = 14];
-	30 -> 34 [label = "a", fontsize = 14];
-	30 -> 35 [label = "a", fontsize = 14];
-	30 -> 36 [label = "a", fontsize = 14];
-	30 -> 37 [label = "a", fontsize = 14];
-31 [label = "(('u',), ('q',))", shape = circle, style = solid, fontsize = 14]
-	31 -> 20 [label = "q", fontsize = 14];
-	31 -> 21 [label = "q", fontsize = 14];
-	31 -> 22 [label = "q", fontsize = 14];
-	31 -> 23 [label = "q", fontsize = 14];
-	31 -> 24 [label = "q", fontsize = 14];
-	31 -> 25 [label = "q", fontsize = 14];
-32 [label = "(('a',), ('⋉',))", shape = circle, style = solid, fontsize = 14]
-	32 -> 13 [label = "⋉", fontsize = 14];
-33 [label = "(('a',), ('p',))", shape = circle, style = solid, fontsize = 14]
-	33 -> 7 [label = "p", fontsize = 14];
-	33 -> 8 [label = "p", fontsize = 14];
-	33 -> 9 [label = "p", fontsize = 14];
-	33 -> 10 [label = "p", fontsize = 14];
-	33 -> 11 [label = "p", fontsize = 14];
-	33 -> 12 [label = "p", fontsize = 14];
-34 [label = "(('a',), ('o',))", shape = circle, style = solid, fontsize = 14]
-	34 -> 14 [label = "o", fontsize = 14];
-	34 -> 15 [label = "o", fontsize = 14];
-	34 -> 16 [label = "o", fontsize = 14];
-	34 -> 17 [label = "o", fontsize = 14];
-	34 -> 18 [label = "o", fontsize = 14];
-	34 -> 19 [label = "o", fontsize = 14];
-35 [label = "(('a',), ('u',))", shape = circle, style = solid, fontsize = 14]
-	35 -> 26 [label = "u", fontsize = 14];
-	35 -> 27 [label = "u", fontsize = 14];
-	35 -> 28 [label = "u", fontsize = 14];
-	35 -> 29 [label = "u", fontsize = 14];
-	35 -> 30 [label = "u", fontsize = 14];
-	35 -> 31 [label = "u", fontsize = 14];
-36 [label = "(('a',), ('a',))", shape = circle, style = solid, fontsize = 14]
-	36 -> 32 [label = "a", fontsize = 14];
-	36 -> 33 [label = "a", fontsize = 14];
-	36 -> 34 [label = "a", fontsize = 14];
-	36 -> 35 [label = "a", fontsize = 14];
-	36 -> 36 [label = "a", fontsize = 14];
-	36 -> 37 [label = "a", fontsize = 14];
-37 [label = "(('a',), ('q',))", shape = circle, style = solid, fontsize = 14]
-	37 -> 20 [label = "q", fontsize = 14];
-	37 -> 21 [label = "q", fontsize = 14];
-	37 -> 22 [label = "q", fontsize = 14];
-	37 -> 23 [label = "q", fontsize = 14];
-	37 -> 24 [label = "q", fontsize = 14];
-	37 -> 25 [label = "q", fontsize = 14];
+	10 -> 20 [label = "u", fontsize = 14];
+	10 -> 21 [label = "u", fontsize = 14];
+	10 -> 22 [label = "u", fontsize = 14];
+	10 -> 23 [label = "u", fontsize = 14];
+	10 -> 24 [label = "u", fontsize = 14];
+	10 -> 25 [label = "u", fontsize = 14];
+11 [label = "(('p',), ('q',))", shape = circle, style = solid, fontsize = 14]
+	11 -> 32 [label = "q", fontsize = 14];
+	11 -> 33 [label = "q", fontsize = 14];
+	11 -> 34 [label = "q", fontsize = 14];
+	11 -> 35 [label = "q", fontsize = 14];
+	11 -> 36 [label = "q", fontsize = 14];
+	11 -> 37 [label = "q", fontsize = 14];
+12 [label = "(('p',), ('p',))", shape = circle, style = solid, fontsize = 14]
+	12 -> 8 [label = "p", fontsize = 14];
+	12 -> 9 [label = "p", fontsize = 14];
+	12 -> 10 [label = "p", fontsize = 14];
+	12 -> 11 [label = "p", fontsize = 14];
+	12 -> 12 [label = "p", fontsize = 14];
+	12 -> 13 [label = "p", fontsize = 14];
+13 [label = "(('p',), ('a',))", shape = circle, style = solid, fontsize = 14]
+	13 -> 14 [label = "a", fontsize = 14];
+	13 -> 15 [label = "a", fontsize = 14];
+	13 -> 16 [label = "a", fontsize = 14];
+	13 -> 17 [label = "a", fontsize = 14];
+	13 -> 18 [label = "a", fontsize = 14];
+	13 -> 19 [label = "a", fontsize = 14];
+14 [label = "(('a',), ('⋉',))", shape = circle, style = solid, fontsize = 14]
+	14 -> 7 [label = "⋉", fontsize = 14];
+15 [label = "(('a',), ('o',))", shape = circle, style = solid, fontsize = 14]
+	15 -> 26 [label = "o", fontsize = 14];
+	15 -> 27 [label = "o", fontsize = 14];
+	15 -> 28 [label = "o", fontsize = 14];
+	15 -> 29 [label = "o", fontsize = 14];
+	15 -> 30 [label = "o", fontsize = 14];
+	15 -> 31 [label = "o", fontsize = 14];
+16 [label = "(('a',), ('u',))", shape = circle, style = solid, fontsize = 14]
+	16 -> 20 [label = "u", fontsize = 14];
+	16 -> 21 [label = "u", fontsize = 14];
+	16 -> 22 [label = "u", fontsize = 14];
+	16 -> 23 [label = "u", fontsize = 14];
+	16 -> 24 [label = "u", fontsize = 14];
+	16 -> 25 [label = "u", fontsize = 14];
+17 [label = "(('a',), ('q',))", shape = circle, style = solid, fontsize = 14]
+	17 -> 32 [label = "q", fontsize = 14];
+	17 -> 33 [label = "q", fontsize = 14];
+	17 -> 34 [label = "q", fontsize = 14];
+	17 -> 35 [label = "q", fontsize = 14];
+	17 -> 36 [label = "q", fontsize = 14];
+	17 -> 37 [label = "q", fontsize = 14];
+18 [label = "(('a',), ('p',))", shape = circle, style = solid, fontsize = 14]
+	18 -> 8 [label = "p", fontsize = 14];
+	18 -> 9 [label = "p", fontsize = 14];
+	18 -> 10 [label = "p", fontsize = 14];
+	18 -> 11 [label = "p", fontsize = 14];
+	18 -> 12 [label = "p", fontsize = 14];
+	18 -> 13 [label = "p", fontsize = 14];
+19 [label = "(('a',), ('a',))", shape = circle, style = solid, fontsize = 14]
+	19 -> 14 [label = "a", fontsize = 14];
+	19 -> 15 [label = "a", fontsize = 14];
+	19 -> 16 [label = "a", fontsize = 14];
+	19 -> 17 [label = "a", fontsize = 14];
+	19 -> 18 [label = "a", fontsize = 14];
+	19 -> 19 [label = "a", fontsize = 14];
+20 [label = "(('u',), ('⋉',))", shape = circle, style = solid, fontsize = 14]
+	20 -> 7 [label = "⋉", fontsize = 14];
+21 [label = "(('u',), ('o',))", shape = circle, style = solid, fontsize = 14]
+	21 -> 26 [label = "o", fontsize = 14];
+	21 -> 27 [label = "o", fontsize = 14];
+	21 -> 28 [label = "o", fontsize = 14];
+	21 -> 29 [label = "o", fontsize = 14];
+	21 -> 30 [label = "o", fontsize = 14];
+	21 -> 31 [label = "o", fontsize = 14];
+22 [label = "(('u',), ('u',))", shape = circle, style = solid, fontsize = 14]
+	22 -> 20 [label = "u", fontsize = 14];
+	22 -> 21 [label = "u", fontsize = 14];
+	22 -> 22 [label = "u", fontsize = 14];
+	22 -> 23 [label = "u", fontsize = 14];
+	22 -> 24 [label = "u", fontsize = 14];
+	22 -> 25 [label = "u", fontsize = 14];
+23 [label = "(('u',), ('q',))", shape = circle, style = solid, fontsize = 14]
+	23 -> 32 [label = "q", fontsize = 14];
+	23 -> 33 [label = "q", fontsize = 14];
+	23 -> 34 [label = "q", fontsize = 14];
+	23 -> 35 [label = "q", fontsize = 14];
+	23 -> 36 [label = "q", fontsize = 14];
+	23 -> 37 [label = "q", fontsize = 14];
+24 [label = "(('u',), ('p',))", shape = circle, style = solid, fontsize = 14]
+	24 -> 8 [label = "p", fontsize = 14];
+	24 -> 9 [label = "p", fontsize = 14];
+	24 -> 10 [label = "p", fontsize = 14];
+	24 -> 11 [label = "p", fontsize = 14];
+	24 -> 12 [label = "p", fontsize = 14];
+	24 -> 13 [label = "p", fontsize = 14];
+25 [label = "(('u',), ('a',))", shape = circle, style = solid, fontsize = 14]
+	25 -> 14 [label = "a", fontsize = 14];
+	25 -> 15 [label = "a", fontsize = 14];
+	25 -> 16 [label = "a", fontsize = 14];
+	25 -> 17 [label = "a", fontsize = 14];
+	25 -> 18 [label = "a", fontsize = 14];
+	25 -> 19 [label = "a", fontsize = 14];
+26 [label = "(('o',), ('⋉',))", shape = circle, style = solid, fontsize = 14]
+	26 -> 7 [label = "⋉", fontsize = 14];
+27 [label = "(('o',), ('o',))", shape = circle, style = solid, fontsize = 14]
+	27 -> 26 [label = "o", fontsize = 14];
+	27 -> 27 [label = "o", fontsize = 14];
+	27 -> 28 [label = "o", fontsize = 14];
+	27 -> 29 [label = "o", fontsize = 14];
+	27 -> 30 [label = "o", fontsize = 14];
+	27 -> 31 [label = "o", fontsize = 14];
+28 [label = "(('o',), ('u',))", shape = circle, style = solid, fontsize = 14]
+	28 -> 20 [label = "u", fontsize = 14];
+	28 -> 21 [label = "u", fontsize = 14];
+	28 -> 22 [label = "u", fontsize = 14];
+	28 -> 23 [label = "u", fontsize = 14];
+	28 -> 24 [label = "u", fontsize = 14];
+	28 -> 25 [label = "u", fontsize = 14];
+29 [label = "(('o',), ('q',))", shape = circle, style = solid, fontsize = 14]
+	29 -> 32 [label = "q", fontsize = 14];
+	29 -> 33 [label = "q", fontsize = 14];
+	29 -> 34 [label = "q", fontsize = 14];
+	29 -> 35 [label = "q", fontsize = 14];
+	29 -> 36 [label = "q", fontsize = 14];
+	29 -> 37 [label = "q", fontsize = 14];
+30 [label = "(('o',), ('p',))", shape = circle, style = solid, fontsize = 14]
+	30 -> 8 [label = "p", fontsize = 14];
+	30 -> 9 [label = "p", fontsize = 14];
+	30 -> 10 [label = "p", fontsize = 14];
+	30 -> 11 [label = "p", fontsize = 14];
+	30 -> 12 [label = "p", fontsize = 14];
+	30 -> 13 [label = "p", fontsize = 14];
+31 [label = "(('o',), ('a',))", shape = circle, style = solid, fontsize = 14]
+	31 -> 14 [label = "a", fontsize = 14];
+	31 -> 15 [label = "a", fontsize = 14];
+	31 -> 16 [label = "a", fontsize = 14];
+	31 -> 17 [label = "a", fontsize = 14];
+	31 -> 18 [label = "a", fontsize = 14];
+	31 -> 19 [label = "a", fontsize = 14];
+32 [label = "(('q',), ('⋉',))", shape = circle, style = solid, fontsize = 14]
+	32 -> 7 [label = "⋉", fontsize = 14];
+33 [label = "(('q',), ('o',))", shape = circle, style = solid, fontsize = 14]
+	33 -> 26 [label = "o", fontsize = 14];
+	33 -> 27 [label = "o", fontsize = 14];
+	33 -> 28 [label = "o", fontsize = 14];
+	33 -> 29 [label = "o", fontsize = 14];
+	33 -> 30 [label = "o", fontsize = 14];
+	33 -> 31 [label = "o", fontsize = 14];
+34 [label = "(('q',), ('u',))", shape = circle, style = solid, fontsize = 14]
+	34 -> 20 [label = "u", fontsize = 14];
+	34 -> 21 [label = "u", fontsize = 14];
+	34 -> 22 [label = "u", fontsize = 14];
+	34 -> 23 [label = "u", fontsize = 14];
+	34 -> 24 [label = "u", fontsize = 14];
+	34 -> 25 [label = "u", fontsize = 14];
+35 [label = "(('q',), ('q',))", shape = circle, style = solid, fontsize = 14]
+	35 -> 32 [label = "q", fontsize = 14];
+	35 -> 33 [label = "q", fontsize = 14];
+	35 -> 34 [label = "q", fontsize = 14];
+	35 -> 35 [label = "q", fontsize = 14];
+	35 -> 36 [label = "q", fontsize = 14];
+	35 -> 37 [label = "q", fontsize = 14];
+36 [label = "(('q',), ('p',))", shape = circle, style = solid, fontsize = 14]
+	36 -> 8 [label = "p", fontsize = 14];
+	36 -> 9 [label = "p", fontsize = 14];
+	36 -> 10 [label = "p", fontsize = 14];
+	36 -> 11 [label = "p", fontsize = 14];
+	36 -> 12 [label = "p", fontsize = 14];
+	36 -> 13 [label = "p", fontsize = 14];
+37 [label = "(('q',), ('a',))", shape = circle, style = solid, fontsize = 14]
+	37 -> 14 [label = "a", fontsize = 14];
+	37 -> 15 [label = "a", fontsize = 14];
+	37 -> 16 [label = "a", fontsize = 14];
+	37 -> 17 [label = "a", fontsize = 14];
+	37 -> 18 [label = "a", fontsize = 14];
+	37 -> 19 [label = "a", fontsize = 14];
 }
