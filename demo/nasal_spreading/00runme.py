@@ -4,7 +4,7 @@ import collections, itertools, re, sys
 from pathlib import Path
 
 sys.path.append(str(Path.home() / 'Code/Python/fst_util'))
-from fst_util import fst_config
+from fst_util import config as fst_config
 from fst_util.fst import *
 
 sys.path.append(str(Path.home() / 'Code/Python/statgram'))
