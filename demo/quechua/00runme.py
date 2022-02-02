@@ -143,13 +143,15 @@ for src in Gen.states():
 fignore = lambda t: (t.olabel in [fst_config.bos, fst_config.eos])
 T = arc_map.keys()
 markup = Eval(T, Con, fignore)
+#print(markup); sys.exit(0)
 _, nodes_ill = Stat(markup, weights, fstat)
 dead_arcs = [marked_node.n for marked_node in nodes_ill]
 dead_arcs = [arc_map[s] for s in dead_arcs]
+
 Lang = Gen.delete_arcs(dead_arcs)
 print(f'Lang: {Lang.num_states()} states, ' \
       f'{Lang.num_arcs()} arcs')
-Lang.draw('Lang_nasal.dot')
+Lang.draw('Lang.dot')
 
 # dot -Tpdf Lang.dot > Lang.pdf
 
