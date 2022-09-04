@@ -60,14 +60,14 @@ consonants = [x for x in wfst_config.sigma \
 # # # # # # # # # #
 # Gen
 # Left-context machine with one-segment history
-M_left = ngram_acceptor(context_length=1, side='left')
+M_left = ngram_acceptor(context='left', context_length=1)
 print(f'M_left: {M_left.num_states()} states, ' \
       f'{M_left.num_arcs()} arcs')
 M_left.draw('Left_context.dot')
 # dot -Tpdf Left_context.dot > Left_context.pdf
 
 # Right-context machine with one-segment lookahead
-M_right = ngram_acceptor(context_length=1, side='right')
+M_right = ngram_acceptor(context='right', context_length=1)
 print(f'M_right: {M_right.num_states()} states, ' \
       f'{M_right.num_arcs()} arcs')
 M_right.draw('Right_context.dot')
@@ -159,6 +159,6 @@ Lang.draw('Lang.dot')
 # Outputs
 #Output = fst_util.intersect(Lang, fst_util.trellis(4))
 #fst_util.draw(Output, 'Output.dot')
-outputs = accepted_strings(Lang, max_len=4)
+outputs = Lang.accepted_strings(max_len=4)
 print('All legal words with <= 4 segments:')
 print(outputs)
