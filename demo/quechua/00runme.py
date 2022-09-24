@@ -159,6 +159,7 @@ Lang.draw('Lang.dot')
 # Outputs
 #Output = fst_util.intersect(Lang, fst_util.trellis(4))
 #fst_util.draw(Output, 'Output.dot')
-outputs = Lang.accepted_strings(max_len=4)
-print('All legal words with <= 4 segments:')
-print(outputs)
+n = 4
+outputs = Lang.accepted_strings(max_len=n, weights=False)
+print(f'All legal words with <= {n} segments:')
+print(list(outputs))

@@ -245,7 +245,7 @@ Lang.draw('Lang_nasal.dot')
 # Outputs
 #Output = fst_util.intersect(Lang, fst_util.trellis(4))
 #fst_util.draw(Output, 'Output_nasal.dot')
-outputs = Lang.accepted_strings(max_len=4)
+outputs = Lang.accepted_strings(max_len=4, weights=False)
 outputs = {pretty_print_spans(x) for x in outputs}
 print('All legal words with <= 4 segments:')
 print(outputs)
