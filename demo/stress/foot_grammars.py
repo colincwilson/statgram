@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
-
 import re, sys
 import numpy as np
 from nltk import CFG
 from nltk.parse import RecursiveDescentParser
 from nltk.tree import ParentedTree
+
 sys.path.append('../..')
 from statgram.harmony import Mark, MarkedNode, Eval, \
     HGStat, OTStat, Stat
@@ -13,6 +12,7 @@ from statgram.harmony import Mark, MarkedNode, Eval, \
 # # # # # # # # # # #
 # Gen
 class FootGen():
+
     def __init__(self):
         # Expansions of PrWd
         PrWd_rules = []
@@ -23,7 +23,7 @@ class FootGen():
             PrWd_rules += PrWd_rules_new
             PrWd_rules_old = PrWd_rules_new[:]
 
-        PrWd_rules = ['PrWd -> '+ x for x in PrWd_rules]
+        PrWd_rules = ['PrWd -> ' + x for x in PrWd_rules]
         # Culminativity (exactly one main-stress foot)
         PrWd_rules = [x for x in PrWd_rules if re.search('Main', x) \
                                 and not re.search('Main.*Main', x)]
@@ -59,27 +59,30 @@ class FootGen():
 
 # # # # # # # # # #
 # Con
-is_foot = lambda s : re.search('Ft', s.label())
+is_foot = lambda s: re.search('Ft', s.label())
+
 
 def Iambic(s):
     if is_foot(s) and len(s) > 1:
-        if re.search('StressSyll', s[1].label()): # right-headed Ft
+        if re.search('StressSyll', s[1].label()):  # right-headed Ft
             v = +1
         else:
             v = -1
     else:
         v = 0
-    return Mark('Iambic', v, subnode = 'lower')
+    return Mark('Iambic', v, subnode='lower')
+
 
 def Trochaic(s):
     if is_foot(s) and len(s) > 1:
-        if re.search('StressSyll', s[0].label()): # left-headed Ft
+        if re.search('StressSyll', s[0].label()):  # left-headed Ft
             v = +1
         else:
             v = -1
     else:
         v = 0
-    return Mark('Trochaic', v, subnode = 'lower')
+    return Mark('Trochaic', v, subnode='lower')
+
 
 def ParseSyll(s):
     # Assign -1.0 to immed. syllable dependents of PrWd
@@ -88,6 +91,7 @@ def ParseSyll(s):
     else:
         v = 0
     return Mark('ParseSyll', v)
+
 
 def FootBinarity(s):
     # Assign -1.0 to subminimal/supermaximal Feet
@@ -98,7 +102,8 @@ def FootBinarity(s):
             v = -1
     else:
         v = 0
-    return Mark('FootBinarity', v, subnode = 'lower')
+    return Mark('FootBinarity', v, subnode='lower')
+
 
 # MainFoot-Left/-Right
 def MainFootLeft(s):
@@ -111,7 +116,8 @@ def MainFootLeft(s):
             if is_foot(t):
                 v = -1
                 break
-    return Mark('MainFootLeft', v, subnode = 'upper')
+    return Mark('MainFootLeft', v, subnode='upper')
+
 
 def MainFootRight(s):
     # Assign -1.0 to main-stress foot that is not rightmost foot
@@ -123,44 +129,50 @@ def MainFootRight(s):
             if is_foot(t):
                 v = -1
                 break
-    return Mark('MainFootRight', v, subnode = 'upper')
+    return Mark('MainFootRight', v, subnode='upper')
+
 
 # AllFeet-Left/Right [categorical as in McCarthy 2003]
 def AllFeetLeft(s):
-    # Assign -1.0 to each foot that is immed. preceded by  
+    # Assign -1.0 to each foot that is immed. preceded by
     # an unfooted syllable
     if is_foot(s) and s.left_sibling() is not None \
       and s.left_sibling().label() == 'Syll':
         v = -1
     else:
         v = 0
-    return Mark('AllFeetLeft', v, subnode = 'upper')
+    return Mark('AllFeetLeft', v, subnode='upper')
+
 
 def AllFeetRight(s):
-    # Assign -1.0 to each foot that is immed. followed by 
+    # Assign -1.0 to each foot that is immed. followed by
     # an unfooted syllable
     if is_foot(s) and s.right_sibling() is not None \
       and s.right_sibling().label() == 'Syll':
         v = -1
     else:
         v = 0
-    return Mark('AllFeetRight', v, subnode = 'upper')
+    return Mark('AllFeetRight', v, subnode='upper')
 
 
 # # # # # # # # # #
 # Eval
-Con = [Iambic, Trochaic, ParseSyll, FootBinarity,
-       MainFootLeft, MainFootRight, AllFeetLeft, AllFeetRight]
-weights = { 'Iambic': 10.0,
-            'Trochaic': 0.0,
-            'ParseSyll': 0.0,
-            'FootBinarity': 1.0,
-            'MainFootLeft': 10.0,
-            'MainFootRight': 0.0,
-            'AllFeetLeft': 10.0,
-            'AllFeetRight': 0.0 }
+Con = [
+    Iambic, Trochaic, ParseSyll, FootBinarity, MainFootLeft, MainFootRight,
+    AllFeetLeft, AllFeetRight
+]
+weights = {
+    'Iambic': 10.0,
+    'Trochaic': 0.0,
+    'ParseSyll': 0.0,
+    'FootBinarity': 1.0,
+    'MainFootLeft': 10.0,
+    'MainFootRight': 0.0,
+    'AllFeetLeft': 10.0,
+    'AllFeetRight': 0.0
+}
 
-# Create grammar and enumerate prosodic parses 
+# Create grammar and enumerate prosodic parses
 # for a given number of unmarked syllables
 Gen = FootGen()
 inpt = 'σ σ σ σ σ'
@@ -176,16 +188,19 @@ for tree in trees:
 
 sys.exit(0)
 
+
 # # # # # # # # # #
 # Initialize mark accumulators on nodes
 def init_marks(t):
     for s in t.subtrees():
         s.marks = {}
 
+
 # Print subtrees with their marks
 def print_marks(t):
     for s in t.subtrees():
         print(s, s.marks)
+
 
 # Sum marks over subtrees under min0 non-linearity
 # xxx add constraint weights and strict domination option
@@ -199,14 +214,13 @@ def harmony(t):
         h_t += h_s
     return h_t
 
+
 # # # # # # # # # #
 # Define stress constraints as mark assigners
-
 
 tree0 = trees0[0]
 tree0.pretty_print()
 init_marks(tree0)
-
 
 t_max_harmony = []
 max_harmony = -np.inf
@@ -216,10 +230,14 @@ for t in trees0:
         constraint(t)
     h_t = harmony(t)
     if h_t > max_harmony:
-        t_max_harmony = [t,]
+        t_max_harmony = [
+            t,
+        ]
         max_harmony = h_t
     elif h_t == max_harmony:
-        t_max_harmony += [t,]
+        t_max_harmony += [
+            t,
+        ]
     print(t, h_t)
 
 print('max harmony: ', max_harmony)

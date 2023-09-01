@@ -1,13 +1,9 @@
-# -*- coding: utf-8 -*-
-
 from collections import namedtuple
 
-
-# Mark with value v assigned by constraint c, 
-# optionally specifying subnode to which mark is assigned; 
+# Mark with value v assigned by constraint c,
+# optionally specifying subnode to which mark is assigned;
 # default subnode is 'root' of the node, denoted by •
-Mark = namedtuple('Mark', ['c', 'v', 'subnode'],
-                    defaults = [None, 0, '•'])
+Mark = namedtuple('Mark', ['c', 'v', 'subnode'], defaults=[None, 0, '•'])
 
 # Node n and mapping from attributes (subnodes) to marks
 MarkedNode = namedtuple('MarkedNode', ['n', 'marks'])
