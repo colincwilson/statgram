@@ -220,11 +220,10 @@ else:
 
 # Assign marks to transitions and prune
 arc_map = {}
-for src in Gen.states(labels=False):
+for src in Gen.states(label=False):
     for t in Gen.arcs(src):
-        s = StrArc(
-            Gen.state_label(src), Gen.input_label(t.ilabel),
-            Gen.output_label(t.olabel), Gen.state_label(t.nextstate))
+        s = StrArc(Gen.state_label(src), Gen.input_label(t.ilabel),
+                   Gen.output_label(t.olabel), Gen.state_label(t.nextstate))
         arc_map[s] = (src, t)
 
 fignore = lambda t: (t.olabel in [wfst_config.bos, wfst_config.eos])
