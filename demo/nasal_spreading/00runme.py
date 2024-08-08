@@ -2,8 +2,8 @@ import collections, itertools, re, sys
 from pathlib import Path
 
 sys.path.append(str(Path.home() / 'Code/Python/wynini'))
-from wynini import config as wfst_config
-from wynini.wfst import *
+from wynini import config as wyconfig
+from wynini.wywrapfst import *
 
 sys.path.append(str(Path.home() / 'Code/Python/statgram'))
 from statgram.harmony import Mark, MarkedNode, Eval, HGStat, OTStat, Stat
@@ -21,9 +21,9 @@ sigma_head = ['1', '0']  # Head vs. dependent within span
 sigma_brack = ['(', '+', ')', '|', '-']  # Span specs
 sigma = itertools.product(sigma_seg, sigma_head, sigma_brack)
 sigma = [''.join(x) for x in sigma]
-wfst_config.init({'sigma': sigma})
+wyconfig.init({'sigma': sigma})
 print(f'|Sigma| = {len(sigma)}')
-print(wfst_config.sigma)
+print(wyconfig.sigma)
 
 
 def pretty_print_spans(form):
@@ -51,14 +51,14 @@ def pretty_print_spans(form):
 # # # # # # # # # #
 # Gen
 # Headed +nasal spans
-M_span = Wfst(wfst_config.symtable)
+M_span = Wfst(wyconfig.symtable)
 for q in range(6):
     M_span.add_state(q)
 M_span.set_start(0)
 M_span.set_final(5)
-M_span.add_arc(src=0, ilabel=wfst_config.bos, dest=1)  # (0, >, 1)
-M_span.add_arc(src=1, ilabel=wfst_config.eos, dest=5)  # (1, <, 5)
-for x in wfst_config.sigma:
+M_span.add_arc(src=0, ilabel=wyconfig.bos, dest=1)  # (0, >, 1)
+M_span.add_arc(src=1, ilabel=wyconfig.eos, dest=5)  # (1, <, 5)
+for x in wyconfig.sigma:
     # Non-nasal; single-membered span
     if re.search('(0[-])|(1[|])', x):
         M_span.add_arc(src=1, ilabel=x, dest=1)
@@ -226,7 +226,7 @@ for src in Gen.states(label=False):
                    Gen.output_label(t.olabel), Gen.state_label(t.nextstate))
         arc_map[s] = (src, t)
 
-fignore = lambda t: (t.olabel in [wfst_config.bos, wfst_config.eos])
+fignore = lambda t: (t.olabel in [wyconfig.bos, wyconfig.eos])
 T = arc_map.keys()
 markup = Eval(T, Con, fignore)
 _, nodes_ill = Stat(markup, weights, fstat)

@@ -2,8 +2,8 @@ import collections, itertools, re, sys
 from pathlib import Path
 
 sys.path.append(str(Path.home() / 'Code/Python/wynini'))
-from wynini import config as wfst_config
-from wynini.wfst import *
+from wynini import config as wyconfig
+from wynini.wywrapfst import *
 
 sys.path.append(str(Path.home() / 'Code/Python/statgram'))
 from statgram.harmony import Mark, MarkedNode, Eval, HGStat, OTStat, Stat
@@ -48,11 +48,11 @@ sigma = {
     'u'
 }
 sigma = ['p', 'q', 'u', 'o', 'a']  # small Sigma for testing
-wfst_config.init({'sigma': list(sigma)})
+wyconfig.init({'sigma': list(sigma)})
 print(f'|Sigma| = {len(sigma)}')
-print(wfst_config.sigma)
+print(wyconfig.sigma)
 vowels = ['i', 'e', 'a', 'o', 'u']
-consonants = [x for x in wfst_config.sigma \
+consonants = [x for x in wyconfig.sigma \
                 if x not in vowels]
 
 # # # # # # # # # #
@@ -114,11 +114,11 @@ def NoMid(t):
 def SyllStruc(t):
     v = 0
     prec, x, succ = get_prec(t), t.olabel, get_succ(t)
-    if (prec == wfst_config.bos or prec in consonants) \
-      and (succ == wfst_config.eos or succ in consonants) \
+    if (prec == wyconfig.bos or prec in consonants) \
+      and (succ == wyconfig.eos or succ in consonants) \
       and x in consonants: # No #CC, CC#, #C#, CCC
         v = -1
-    elif (prec == wfst_config.bos or prec in vowels) \
+    elif (prec == wyconfig.bos or prec in vowels) \
       and x in vowels: # No <V, VV
         v = -1
     return Mark('SyllStruc', v)
@@ -137,7 +137,7 @@ for src in Gen.states(label=False):
                    Gen.output_label(t.olabel), Gen.state_label(t.nextstate))
         arc_map[s] = (src, t)
 
-fignore = lambda t: (t.olabel in [wfst_config.bos, wfst_config.eos])
+fignore = lambda t: (t.olabel in [wyconfig.bos, wyconfig.eos])
 T = arc_map.keys()
 markup = Eval(T, Con, fignore)
 #print(markup); sys.exit(0)
