@@ -28,11 +28,11 @@ print(wyconfig.sigma)
 
 def pretty_print_spans(form):
     # x( -> (x+
-    form = re.sub('(\S+)[(]', '(\\1+', form)
+    form = re.sub(r'(\S+)[(]', '(\\1+', form)
     # x) -> x+)
-    form = re.sub('(\S+)[)]', '\\1+)', form)
+    form = re.sub(r'(\S+)[)]', '\\1+)', form)
     # x| -> (x+)
-    form = re.sub('(\S+)[|]', '(\\1+)', form)
+    form = re.sub(r'(\S+)[|]', '(\\1+)', form)
     # x1 -> .x
     form = re.sub('(.)[1]', '.\\1', form)  # \u0332
     # x0 -> x
