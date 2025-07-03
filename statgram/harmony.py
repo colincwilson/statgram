@@ -9,15 +9,15 @@ Mark = namedtuple('Mark', ['c', 'v', 'subnode'], defaults=[None, 0, '•'])
 MarkedNode = namedtuple('MarkedNode', ['n', 'marks'])
 
 
-def Eval(M, Con, fignore=None):
+def Eval(M, Con, ignore_func=None):
     """
     Evaluate each node of structure M with constraints in Con.
-    (Nodes for which fignore evaluates to true are not marked.)
+    (Nodes for which function ignore evaluates to true are not marked.)
     """
     markup = []
-    ignore = (fignore is not None)
+    ignore = (ignore_func is not None)
     for node in M:
-        if ignore and fignore(node):
+        if ignore and ignore_func(node):
             continue
         marks = dict()
         for constraint in Con:
@@ -35,7 +35,7 @@ def Eval(M, Con, fignore=None):
 def HGStat(marks, weights):
     """
     Static HG harmony function: sum marks within a (sub)node, 
-    apply min0 ("minnow") threshold non-linearity
+    apply min0 ("minnow") threshold non-linearity.
     """
     score = 0.0
     for (c, v, _) in marks:
@@ -49,7 +49,7 @@ def OTStat(marks, ranks):
     Static OT harmony function: a (sub)node is well-formed iff 
     every constraint that assigns it a negative mark is 
     dominated by some constraint that assigns it a 
-    positive mark
+    positive mark.
     """
     c_max, v_max = None, 0.0
     for (c, v, _) in marks:
@@ -59,19 +59,19 @@ def OTStat(marks, ranks):
     return harmony
 
 
-def Stat1(node, weights, fstat=HGStat):
+def Stat1(node, weights, stat_func=HGStat):
     """
     Apply static HG or OT harmony function to a single node.
     (For OTStat pass in ranks in place of weights.)
     """
     harmony_total = 0.0
     for (subnode, marks) in node.marks.items():
-        harmony = fstat(marks, weights)
+        harmony = stat_func(marks, weights)
         harmony_total += harmony
     return harmony_total
 
 
-def Stat(markup, weights, fstat=HGStat):
+def Stat(markup, weights, stat_func=HGStat):
     """
     Apply static HG or OT harmony function to each marked node of 
     structure M, tracking which nodes are ill-formed (harmony < 0).
@@ -80,7 +80,7 @@ def Stat(markup, weights, fstat=HGStat):
     harmony_total = 0.0
     ill_nodes = []
     for node in markup:
-        harmony = Stat1(node, weights, fstat)
+        harmony = Stat1(node, weights, stat_func)
         if harmony < 0.0:
             harmony_total += harmony
             ill_nodes.append(node)

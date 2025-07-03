@@ -12,7 +12,7 @@ from statgram.harmony import Mark, MarkedNode, Eval, HGStat, OTStat, Stat
 StrArc = collections.namedtuple('StrArc', \
     ['src', 'ilabel', 'olabel', 'dest'])
 spread_direction = {0: 'LR->', 1: '<-RL'}[0]
-fstat = {0: HGStat, 1: OTStat}[0]
+stat_func = {0: HGStat, 1: OTStat}[0]
 
 # # # # # # # # # #
 # Alphabet
@@ -226,10 +226,10 @@ for src in Gen.states(label=False):
                    Gen.output_label(t.olabel), Gen.state_label(t.nextstate))
         arc_map[s] = (src, t)
 
-fignore = lambda t: (t.olabel in [wyconfig.bos, wyconfig.eos])
+ignore_func = lambda t: (t.olabel in [wyconfig.bos, wyconfig.eos])
 T = arc_map.keys()
-markup = Eval(T, Con, fignore)
-_, nodes_ill = Stat(markup, weights, fstat)
+markup = Eval(T, Con, ignore_func)
+_, nodes_ill = Stat(markup, weights, stat_func)
 dead_arcs = [marked_node.n for marked_node in nodes_ill]
 dead_arcs = [arc_map[s] for s in dead_arcs]
 Lang = Gen.delete_arcs(dead_arcs)
