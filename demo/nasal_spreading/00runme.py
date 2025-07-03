@@ -85,21 +85,21 @@ for x in wyconfig.sigma:
         M_span.add_arc(src=4, ilabel=x, dest=1)
 print(f'M_span: {M_span.num_states()} states, ' \
       f'{M_span.num_arcs()} arcs')
-M_span.draw('Span_nasal.dot')
+#M_span.draw('Span_nasal.dot')
 # dot -Tpdf Span_nasal.dot > Span_nasal.pdf
 
 # Left-context machine with one-segment history
 M_left = ngram(context='left', length=1)
 print(f'M_left: {M_left.num_states()} states, ' \
       f'{M_left.num_arcs()} arcs')
-M_left.draw('Left_context.dot')
+#M_left.draw('Left_context.dot')
 # dot -Tpdf Left_context.dot > Left_context.pdf
 
 # Right-context machine with one-segment lookahead
 M_right = ngram(context='right', length=1)
 print(f'M_right: {M_right.num_states()} states, ' \
       f'{M_right.num_arcs()} arcs')
-M_right.draw('Right_context.dot')
+#M_right.draw('Right_context.dot')
 # dot -Tpdf Right_context.dot > Right_context.pdf
 
 # Intersection of M_tier and M_left or M_right
@@ -109,7 +109,7 @@ else:
     Gen = compose(M_span, M_right)
 print(f'Gen: {Gen.num_states()} states, ' \
       f'{Gen.num_arcs()} arcs')
-Gen.draw('Gen_nasal.dot')
+#Gen.draw('Gen_nasal.dot')
 # dot -Tpdf Gen_nasal.dot > Gen_nasal.pdf
 
 # # # # # # # # # #
@@ -242,7 +242,7 @@ Lang.draw('Lang_nasal.dot')
 # Outputs
 #Output = fst_util.intersect(Lang, fst_util.trellis(4))
 #fst_util.draw(Output, 'Output_nasal.dot')
-outputs = Lang.accepted_strings(max_len=4, weights=False)
+outputs = Lang.accepted_strings(max_len=4, has_delim=True, weights=False)
 outputs = {pretty_print_spans(x) for x in outputs}
 print('All legal words with <= 4 segments:')
 print(outputs)

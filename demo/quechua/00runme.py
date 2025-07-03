@@ -20,7 +20,7 @@ sigma = {
     'tʃ',
     'k',
     'q',  # plain
-    'pʰ',  # aspirate
+    'pʰ',  # aspirated
     'tʰ',
     'tʃʰ',
     'kʰ',
@@ -157,6 +157,6 @@ Lang.draw('Lang.dot')
 #Output = fst_util.intersect(Lang, fst_util.trellis(4))
 #fst_util.draw(Output, 'Output.dot')
 n = 4
-outputs = Lang.accepted_strings(max_len=n, weights=False)
+outputs = Lang.accepted_strings(max_len=n, has_delim=True, weights=False)
 print(f'All legal words with <= {n} segments:')
 print(list(outputs))
