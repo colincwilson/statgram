@@ -1,9 +1,9 @@
 import collections, itertools, re, sys
 from pathlib import Path
 
-sys.path.append(str(Path.home() / 'Code/Python/wynini'))
-from wynini import config as wyconfig
-from wynini.wywrapfst import *
+sys.path.append(str(Path.home() / 'Code/Python/wyfst'))
+from wyfst import config as wyconfig
+from wyfst.wywrapfst import *
 
 sys.path.append(str(Path.home() / 'Code/Python/statgram'))
 from statgram.harmony import Mark, MarkedNode, Eval, HGStat, OTStat, Stat
