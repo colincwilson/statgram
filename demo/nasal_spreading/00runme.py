@@ -11,7 +11,7 @@ from statgram.harmony import Mark, MarkedNode, Eval, HGStat, OTStat, Stat
 
 StrArc = collections.namedtuple('StrArc', \
     ['src', 'ilabel', 'olabel', 'dest'])
-spread_direction = {0: 'LR->', 1: '<-RL'}[0]
+spread_direction = {0: 'LR->', 1: '<-RL'}[1]
 stat_func = {0: HGStat, 1: OTStat}[0]
 
 # # # # # # # # # #
@@ -172,7 +172,7 @@ def SpreadNasR(t):
 def SpreadNasL(t):
     # Segments immediately preceded by span members must be dependents
     v = 0
-    x, succ = x, get_succ(t)
+    x, succ = t.olabel, get_succ(t)
     if re.search('[(|]', succ):  # Followed by span edge
         v = -1
     elif re.search('[)+]', succ) \
